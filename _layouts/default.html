@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    {% seo %}
+    <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <style>
+      /* ── Nav bar ─────────────────────────────────────────── */
+      #site_nav {
+        margin-top: 14px;
+      }
+      #site_nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      #site_nav ul li { display: inline-flex; }
+      .nav-pill {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.9);
+        border: 0.5px solid rgba(255,255,255,0.25);
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+      }
+      .nav-pill:hover,
+      .nav-pill.active {
+        background: rgba(255,255,255,0.3);
+        color: #fff;
+        border-color: rgba(255,255,255,0.5);
+      }
+      /* ── Header tagline tweak ────────────────────────────── */
+      #project_tagline { opacity: 0.88; }
+      /* ── Remove theme's fixed 540px width on h1/h2 ──────── */
+      header h1, header h2 { width: auto; font-size: unset;}
+     
+      /* ── Phase tag pills in header ───────────────────────── */
+      .header-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 14px;
+      }
+      .header-pill {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 3px 10px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.9);
+        border: 0.5px solid rgba(255,255,255,0.25);
+        letter-spacing: 0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header_wrap" class="outer">
+      <header class="inner">
+        <h1 id="project_title"><a href="{{ '/' | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a></h1>
+        <h2 id="project_tagline">{{ site.description }}</h2>
+        
+        <nav id="site_nav">
+          <ul>
+            <li><a class="nav-pill{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a></li>
+            <li><a class="nav-pill{% if page.url contains '/courses' %} active{% endif %}" href="{{ '/courses/' | relative_url }}">Courses</a></li>
+            <li><a class="nav-pill{% if page.url contains 'agentic-ai-engineering' %} active{% endif %}" href="{{ '/courses/agentic-ai-engineering/' | relative_url }}">Agentic AI</a></li>
+            <li><a class="nav-pill{% if page.url contains '/blog' %} active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a></li>
+            <li><a class="nav-pill{% if page.url contains '/about' %} active{% endif %}" href="{{ '/about/' | relative_url }}">About</a></li>
+          </ul>
+        </nav>
+      </header>
+     
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        {{ content }}
+      </section>
+    </div>
+
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">LearnHub — Agentic AI Engineering &bull; by <a href="{{ '/about/' | relative_url }}">Khush Kaushik</a></p>
+        <p>Built with <a href="https://jekyllrb.com">Jekyll</a> &bull; Hosted on <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

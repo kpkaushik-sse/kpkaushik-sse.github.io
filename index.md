@@ -3,78 +3,59 @@ layout: default
 title: Home
 ---
 
-# Welcome to LearnHub
+# Build Real AI Agents — From First Principles to Production
 
-**Your structured path to mastering modern development.**
+**Structured, hands-on learning for the era of autonomous AI.**
 
-Whether you're just starting out or leveling up, LearnHub provides clear, hands-on tutorials organized into focused learning tracks. Build real skills — one lesson at a time.
+LearnHub is a free, self-paced platform for engineers who want to go beyond prompting and actually build agentic AI systems — systems that reason, plan, use tools, and complete complex tasks autonomously.
 
----
-
-## Featured Learning Tracks
-
-<div class="track-grid">
-
-### Web Development Fundamentals
-
-Master the building blocks of the web — HTML, CSS, and JavaScript from scratch to proficiency.
-
-- 12 lessons &bull; Beginner
-- [Start Learning &rarr;](/courses/web-fundamentals/)
+[Start the Agentic AI course &rarr;](/courses/agentic-ai-engineering/)
 
 ---
 
-### JavaScript Deep Dive
+## What You Will Learn
 
-Go beyond the basics. Closures, async/await, the event loop, and ES2024 features explained clearly.
+| Phase                   | Topics                                                  | Duration    |
+| ----------------------- | ------------------------------------------------------- | ----------- |
+| **1 — Foundations**     | Agentic concepts, ReAct, ReWOO, design patterns, ethics | Weeks 1–3   |
+| **2 — Core Frameworks** | LangChain, LCEL, LangGraph, Agentic RAG, LlamaIndex     | Weeks 4–7   |
+| **3 — Advanced Agents** | Phidata, CrewAI, multi-agent systems, Autogen           | Weeks 8–10  |
+| **4 — Ops & Cloud**     | AgentOps, Langfuse, Langsmith, Langflow, AWS/Azure/GCP  | Weeks 11–12 |
 
-- 9 lessons &bull; Intermediate
-- [Start Learning &rarr;](/courses/javascript-deep-dive/)
-
----
-
-### Git & Version Control
-
-Understand Git workflows, branching strategies, pull requests, and collaboration best practices.
-
-- 7 lessons &bull; Beginner
-- [Start Learning &rarr;](/courses/git-version-control/)
+[View the full 12-week plan &rarr;](/courses/agentic-ai-engineering/)
 
 ---
 
-### REST APIs & Backend Basics
+## Key Concepts Covered
 
-Design, build, and consume REST APIs. Learn HTTP, JSON, authentication, and server-side thinking.
-
-- 10 lessons &bull; Intermediate
-- [Start Learning &rarr;](/courses/rest-apis/)
-
-</div>
+- **AI Agents** — autonomous loops of perception, reasoning, and action
+- **ReAct pattern** — interleaving reasoning traces with tool calls
+- **LangGraph** — stateful, graph-based agent orchestration with persistent memory
+- **Agentic RAG** — retrieval pipelines driven by an agent, not a static chain
+- **Multi-agent systems** — specialized agents collaborating via CrewAI and Autogen
+- **Observability** — tracing and evaluating agent runs with Langfuse and Langsmith
+- **Cloud deployment** — running agents on AWS Bedrock, Azure OpenAI, and GCP Vertex AI
 
 ---
 
-## Latest Tutorials
+## Latest Posts
 
 {% for post in site.posts limit:5 %}
 
-- **[{{ post.title }}]({{ post.url | relative_url }})** — <small>{{ post.date | date: "%B %d, %Y" }} &bull; {{ post.categories | join: ", " }}</small>
+- **[{{ post.title }}]({{ post.url | relative_url }})** — <small>{{ post.date | date: "%B %d, %Y" }}</small>
   {% endfor %}
 
-[View all tutorials &rarr;](/blog/)
+[All posts &rarr;](/blog/)
 
 ---
 
-## How LearnHub Works
+## How It Works
 
-1. **Choose a track** — Browse curated learning paths aligned to real-world skills.
-2. **Follow the lessons** — Each lesson is short, focused, and includes code examples you can run immediately.
-3. **Practice & build** — Every track ends with a mini project to cement your knowledge.
-4. **Go further** — Explore the blog for tips, tool reviews, and deep dives on specific topics.
+1. **Follow the 12-week plan** — modules are sequenced so each one builds on the last.
+2. **Do the labs** — 20+ hands-on projects, not just theory.
+3. **Build your capstone** — a multi-agent RAG system with observability, deployed to cloud.
+4. **Explore the blog** — deeper dives, concept explainers, and framework comparisons.
 
 ---
 
-## About This Platform
-
-LearnHub is a free, open-source tutorial blog built with Jekyll and hosted on GitHub Pages. Content is written by developers, for developers — practical, no-fluff, and always up to date.
-
-[Learn more about LearnHub &rarr;](/about/)
+[About LearnHub &rarr;](/about/)

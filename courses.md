@@ -1,12 +1,22 @@
 ---
 layout: default
-title: Courses
+title: AI Agent Mastery
 permalink: /courses/
 ---
 
 # Learning Tracks
 
 Structured paths from zero to project-ready. Each track is a sequence of focused lessons with a mini-project at the end.
+
+---
+
+## Agentic AI Engineering
+
+**Level:** Advanced &bull; **Modules:** 11 &bull; **Duration:** ~12 weeks
+
+A comprehensive self-paced plan covering Agentic AI from first principles to cloud deployment. Build real agents with LangChain, LangGraph, LlamaIndex, CrewAI, Autogen, and more — with 20+ hands-on labs.
+
+[View full course plan &rarr;](/courses/agentic-ai-engineering/)
 
 ---
 
