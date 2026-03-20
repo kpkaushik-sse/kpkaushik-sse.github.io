@@ -1,0 +1,8 @@
+title: "LMS Tutorial Blog"
+description: "Learning Management System tutorials, guides, and notes"
+remote_theme: pages-themes/architect@v0.2.0
+plugins: [jekyll-remote-theme, jekyll-seo-tag]
+show_downloads: false
+author: "kpkaushik-sse"
+github:
+  is_project_page: true
