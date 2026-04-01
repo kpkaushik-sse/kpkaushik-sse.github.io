@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" fill="none">
   <rect x="0" y="0" width="200" height="52" rx="8" fill="#2C360C"/>
   <rect x="8" y="8" width="36" height="36" rx="18" fill="#E0F82E"/>
-  <text x="26" y="32" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="16" fill="#1A1917">K</text>
+  <text x="26" y="31" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="10" letter-spacing="0.4" fill="#1A1917">KAI</text>
   <path d="M11 40 Q29 34, 46 39" stroke="#AC642E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <text x="54" y="32" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" letter-spacing="1" fill="#FFFFFF">KAI</text>
-  <text x="55" y="43" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="8" letter-spacing="0.6" fill="#C8D3A1">AGENTIC LEARNING</text>
+  <text x="54" y="32" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="13" letter-spacing="0.3" fill="#FFFFFF">Agentic Learning</text>
 </svg>
