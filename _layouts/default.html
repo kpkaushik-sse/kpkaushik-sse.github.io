@@ -354,6 +354,21 @@
       .footer-copy a { color: var(--gray-500); }
       .footer-copy a:hover { color: var(--star); }
 
+      .footer-visitors {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--gray-500);
+        margin-top: 10px;
+      }
+      .footer-visitors .material-icons-outlined { font-size: 15px; }
+      .footer-visitors span.visitor-count {
+        font-family: 'Fira Code', monospace;
+        font-weight: 500;
+        color: var(--star);
+      }
+
       @media (max-width: 768px) {
         .footer-inner { flex-direction: column; text-align: center; }
         .footer-links { justify-content: center; }
@@ -481,9 +496,16 @@
           &copy; {{ 'now' | date: "%Y" }} <a href="{{ '/about/' | relative_url }}">Khush Kaushik</a> &middot;
           Built with <a href="https://jekyllrb.com">Jekyll</a> &middot;
           Hosted on <a href="https://pages.github.com">GitHub Pages</a>
+          <div class="footer-visitors">
+            <span class="material-icons-outlined">visibility</span>
+            <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fkpkaushik-sse.github.io&label=Visitors&countColor=%23546414&labelColor=%231A1917&style=flat" alt="Visitor count" style="height:20px;vertical-align:middle;">
+          </div>
         </div>
       </div>
     </footer>
+
+  </body>
+</html>
 
   </body>
 </html>
