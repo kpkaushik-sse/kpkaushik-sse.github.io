@@ -20,6 +20,31 @@ A hands-on learning track for building autonomous AI agents — from orchestrati
 
 ---
 
+## DSA Explorer — Interactive Algorithms & Data Structures
+
+**Level:** Intermediate &bull; **Algorithms:** 12 &bull; **Categories:** 5
+
+A visual, interactive reference covering sorting, searching, graph traversal, dynamic programming, and core data structures. Each algorithm includes step-by-step animations, complexity analysis, real-world use cases, and production-ready Python code.
+
+| #   | Algorithm     | Category            | Time (avg) |
+| --- | ------------- | ------------------- | ---------- |
+| 1   | Quick Sort    | Sorting             | O(n log n) |
+| 2   | Merge Sort    | Sorting             | O(n log n) |
+| 3   | Heap Sort     | Sorting             | O(n log n) |
+| 4   | Binary Search | Searching           | O(log n)   |
+| 5   | Linear Search | Searching           | O(n)       |
+| 6   | BFS           | Graph & Tree        | O(V+E)     |
+| 7   | DFS           | Graph & Tree        | O(V+E)     |
+| 8   | Dijkstra's    | Graph & Tree        | O(E log V) |
+| 9   | LCS           | Dynamic Programming | O(mn)      |
+| 10  | 0/1 Knapsack  | Dynamic Programming | O(nW)      |
+| 11  | Linked List   | Data Structures     | O(n)       |
+| 12  | Hash Table    | Data Structures     | O(1) avg   |
+
+[View full track &rarr;](/courses/dsa-explorer/) &nbsp;&middot;&nbsp; [Open Interactive Explorer &rarr;](/dsa-explorer.html)
+
+---
+
 ## Web Development Fundamentals
 
 **Level:** Beginner &bull; **Lessons:** 3 published

@@ -174,7 +174,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
   <h1>Unit 1 — Agentic AI Essentials</h1>
   <p class="mod-hero-sub">Your starting point. What makes AI <em>agentic</em>? How is it different from chatbots and traditional software? By the end of this module you'll think in agent loops, not chat prompts.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track A · Groundwork</span>
+    <span class="mod-pill track">Module A · Groundwork</span>
     <span class="mod-pill time">⏱ ~12 hrs across 5 days</span>
     <span class="mod-pill hands">🛠 2 hands-on labs</span>
   </div>
@@ -268,6 +268,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
         <li>Think of 1 boring repetitive task in your life that an agent could handle for you</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -307,6 +308,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
         <li>Label what each box would do in a customer-support scenario</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -543,6 +545,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
     <div class="insight-box">
       <strong>Key insight:</strong> The loop is what separates an agent from a chatbot. A chatbot does one pass: input → output. An agent does many passes: goal → reason → act → observe → adjust → act again → … → done.
     </div>
+
   </div>
 </div>
 
@@ -572,6 +575,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
     <div class="insight-box">
       <strong>Practical reality:</strong> Most production agents today operate at Level 2–3. Fully autonomous (Level 4) requires extremely high reliability, which current LLMs haven't achieved for all tasks. Design for the level your use case actually needs.
     </div>
+
   </div>
 </div>
 
@@ -615,6 +619,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
         <li>Mark which actions need a human checkpoint and which can run freely</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -672,6 +677,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
     <div class="insight-box">
       <strong>Rule of thumb:</strong> Start with a single agent. Only add more agents when you hit a clear capability boundary — when one agent can't hold all the tools, context, or expertise needed. Premature multi-agent design is the #1 cause of agent system complexity.
     </div>
+
   </div>
 </div>
 
@@ -703,6 +709,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
     <div class="insight-box">
       <strong>How to think about frameworks:</strong> They're all solving the same problem — running the agent loop — but with different trade-offs. LangGraph gives you maximum control. CrewAI makes multi-agent easy. Phidata is fastest to prototype. You'll develop opinions as you build with them.
     </div>
+
   </div>
 </div>
 
@@ -794,6 +801,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
       <li><strong>Full audit trail</strong> — log every action, tool call, and observation for post-hoc review</li>
       <li><strong>Fail safe</strong> — when uncertain, stop and ask rather than guess</li>
     </ol>
+
   </div>
 </div>
 
@@ -835,6 +843,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
         <p>Treat prompts like code. Version them, review changes, A/B test them. A single-word change in a system prompt can completely alter agent behaviour.</p>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -894,6 +903,7 @@ description: "Your starting point for building autonomous AI systems. Covers cor
         <tr><td><strong>DevOps</strong></td><td>Investigate incidents, propose fixes</td><td>Log search, shell access, alerting API</td></tr>
       </tbody>
     </table>
+
   </div>
 </div>
 
@@ -978,9 +988,12 @@ description: "Your starting point for building autonomous AI systems. Covers cor
   <li>Name three frameworks from the landscape and what each is best at.</li>
 </ol>
 
-<div style="text-align: center; margin-top: 36px;">
-  <a href="/courses/agentic-ai-engineering/" style="display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px; background: var(--gum); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; transition: background var(--transition);">
+<div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top: 36px;">
+  <a href="/courses/agentic-ai-engineering/" style="display: inline-flex; align-items: center; gap: 6px; padding: 12px 22px; background: var(--gum); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; transition: background var(--transition);">
     ← Back to Course Overview
+  </a>
+  <a href="/blog/2026/03/28/u2-agentic-ai-architecture-design-patterns/" style="display: inline-flex; align-items: center; gap: 6px; padding: 12px 22px; background: var(--earth); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; transition: background var(--transition);">
+    Next: Unit 2 →
   </a>
 </div>
 

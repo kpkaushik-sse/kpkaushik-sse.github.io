@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DSA Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<style>
+:root{--bg:#F5F3EF;--surface:#FFFFFF;--surface2:#FAFAF8;--border:#E8E4DD;--accent:#546414;--accent2:#AC642E;--accent3:#7c3aed;--accent4:#16a34a;--text:#1A1917;--muted:#8C8578;--heading:#1A1917;--star:#E0F82E;--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 12px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04);--radius-sm:6px;--radius-md:10px;--radius-lg:16px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:15px;line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(84,100,20,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(84,100,20,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+::selection{background:var(--star);color:#000;}
+.shell{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:24px;}
+header{padding:40px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px;}
+.header-tag{font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
+header h1{font-family:'Inter',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:800;color:var(--heading);line-height:1.05;letter-spacing:-0.02em;}
+header h1 span{color:var(--accent);}
+.header-sub{margin-top:8px;color:var(--muted);font-size:13px;}
+.stats-row{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;gap:2px;}
+.stat-num{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--accent);}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.layout{display:grid;grid-template-columns:250px 1fr;gap:22px;align-items:start;}
+@media(max-width:880px){.layout{grid-template-columns:1fr;}}
+.sidebar{position:sticky;top:20px;}
+.sidebar-section{margin-bottom:20px;}
+.sidebar-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-left:10px;font-weight:600;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;font-size:12px;color:var(--muted);border:1px solid transparent;font-weight:500;}
+.nav-item:hover{color:var(--text);background:var(--surface);border-color:var(--border);}
+.nav-item.active{color:var(--accent);background:rgba(84,100,20,0.08);border-color:rgba(84,100,20,0.2);}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:9px;padding:2px 6px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:'Fira Code',monospace;}
+.algo-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;animation:fadeIn .25s ease;box-shadow:var(--shadow-sm);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card-header{padding:24px 28px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.card-category{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:5px;font-weight:600;}
+.card-title{font-family:'Inter',sans-serif;font-size:26px;font-weight:800;color:var(--heading);letter-spacing:-0.02em;}
+.card-desc{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.8;max-width:580px;}
+.complexity-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;margin-top:4px;}
+.pill{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:0.02em;}
+.pill-time{background:rgba(84,100,20,0.08);color:var(--accent);border:1px solid rgba(84,100,20,0.2);}
+.pill-space{background:rgba(124,58,237,0.06);color:var(--accent3);border:1px solid rgba(124,58,237,0.2);}
+.pill-best{background:rgba(22,163,74,0.06);color:var(--accent4);border:1px solid rgba(22,163,74,0.2);}
+.pill-worst{background:rgba(172,100,46,0.06);color:var(--accent2);border:1px solid rgba(172,100,46,0.2);}
+.tabs{display:flex;border-bottom:1px solid var(--border);}
+.tab{padding:12px 20px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .15s;font-weight:500;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-content{display:none;padding:24px 28px;}
+.tab-content.active{display:block;}
+.viz-controls{display:flex;gap:8px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
+.viz-btn{padding:7px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:'Fira Code',monospace;font-size:11px;cursor:pointer;transition:all .15s;font-weight:500;}
+.viz-btn:hover{border-color:var(--accent);color:var(--accent);}
+.viz-btn.primary{background:rgba(84,100,20,0.08);border-color:var(--accent);color:var(--accent);}
+.viz-speed{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.viz-speed input{accent-color:var(--accent);}
+.step-counter{margin-left:auto;font-size:11px;color:var(--muted);}
+.viz-array{display:flex;gap:5px;align-items:flex-end;min-height:95px;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:14px;flex-wrap:wrap;}
+.bar{display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .25s;}
+.bar-rect{width:32px;border-radius:3px 3px 0 0;transition:all .25s;min-height:8px;background:var(--border);}
+.bar-label{font-size:9px;color:var(--muted);}
+.bar.comparing .bar-rect{background:var(--accent2)!important;box-shadow:0 0 8px rgba(172,100,46,0.3);}
+.bar.swapping .bar-rect{background:var(--accent)!important;box-shadow:0 0 8px rgba(84,100,20,0.3);}
+.bar.sorted .bar-rect{background:var(--accent4)!important;}
+.bar.pivot .bar-rect{background:var(--accent3)!important;box-shadow:0 0 8px rgba(124,58,237,0.3);}
+.step-info{padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;line-height:1.7;border-left:3px solid var(--accent);}
+.step-info strong{color:var(--accent);}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;font-size:10px;color:var(--muted);}
+.legend-item{display:flex;align-items:center;gap:4px;}
+.legend-dot{width:9px;height:9px;border-radius:2px;}
+.tree-viz{width:100%;height:240px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:14px;}
+.search-array{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;}
+.s-box{width:38px;height:38px;border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--surface);transition:all .25s;}
+.s-box.active{border-color:var(--accent);background:rgba(84,100,20,0.1);color:var(--accent);box-shadow:0 0 6px rgba(84,100,20,0.2);}
+.s-box.eliminated{opacity:.25;}
+.s-box.found{border-color:var(--accent4);background:rgba(22,163,74,0.1);color:var(--accent4);}
+.s-box.range{border-color:var(--accent3);background:rgba(124,58,237,0.05);}
+.dp-table-wrap{overflow-x:auto;margin-bottom:14px;}
+.dp-table{border-collapse:collapse;font-size:11px;min-width:100%;}
+.dp-table th,.dp-table td{border:1px solid var(--border);padding:7px 12px;text-align:center;transition:all .25s;}
+.dp-table th{background:var(--surface2);color:var(--accent);font-family:'Inter',sans-serif;font-weight:600;}
+.dp-table td{background:var(--surface);}
+.dp-table td.filled{background:rgba(84,100,20,0.06);color:var(--accent);}
+.dp-table td.current{background:rgba(84,100,20,0.15);color:var(--heading);font-weight:700;box-shadow:inset 0 0 0 2px var(--accent);}
+.complexity-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+@media(max-width:580px){.complexity-grid{grid-template-columns:1fr;}}
+.complexity-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);}
+.complexity-card h4{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--heading);margin-bottom:10px;}
+.complexity-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.complexity-row:last-child{border-bottom:none;}
+.complexity-label{color:var(--muted);}
+.complexity-value{font-family:'Inter',sans-serif;font-weight:700;}
+.c-green{color:var(--accent4);}.c-yellow{color:#d97706;}.c-red{color:var(--accent2);}.c-blue{color:var(--accent);}.c-purple{color:var(--accent3);}
+.big-o-chart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-sm);}
+.big-o-chart h4{font-family:'Inter',sans-serif;font-size:13px;color:var(--heading);margin-bottom:14px;}
+.o-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:11px;}
+.o-name{width:80px;color:var(--muted);text-align:right;flex-shrink:0;font-family:'Fira Code',monospace;}
+.o-track{flex:1;background:var(--border);border-radius:3px;height:14px;overflow:hidden;}
+.o-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:5px;font-size:9px;font-weight:700;color:#fff;}
+.use-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+@media(max-width:580px){.use-case-grid{grid-template-columns:1fr;}}
+.use-case-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);}
+.use-case-card h5{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:var(--heading);margin-bottom:5px;display:flex;align-items:center;gap:7px;}
+.use-case-card p{font-size:11px;color:var(--muted);line-height:1.7;}
+.when-to-use{background:rgba(22,163,74,0.04);border:1px solid rgba(22,163,74,0.18);border-radius:var(--radius-md);padding:13px;margin-bottom:12px;}
+.when-to-use h4{font-family:'Inter',sans-serif;font-size:12px;color:var(--accent4);margin-bottom:7px;font-weight:600;}
+.when-to-use ul{list-style:none;font-size:11px;color:var(--muted);line-height:2;}
+.when-to-use ul li::before{content:'→ ';color:var(--accent4);}
+.avoid{background:rgba(172,100,46,0.04);border:1px solid rgba(172,100,46,0.18);border-radius:var(--radius-md);padding:13px;}
+.avoid h4{font-family:'Inter',sans-serif;font-size:12px;color:var(--accent2);margin-bottom:7px;font-weight:600;}
+.avoid ul{list-style:none;font-size:11px;color:var(--muted);line-height:2;}
+.avoid ul li::before{content:'✕ ';color:var(--accent2);}
+.code-block{background:#1A1917;border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:14px;}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.05);}
+.code-lang{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+.copy-btn{font-size:10px;padding:3px 9px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;font-family:'Fira Code',monospace;transition:all .15s;}
+.copy-btn:hover{color:#E0F82E;border-color:#E0F82E;}
+pre{padding:18px;overflow-x:auto;font-size:12px;line-height:1.9;font-family:'Fira Code',monospace;color:#e8e8e8;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.cm{color:#6272a4;font-style:italic;}.str{color:#f1fa8c;}.num{color:#bd93f9;}
+.ll-viz{display:flex;align-items:center;gap:0;flex-wrap:wrap;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:14px;}
+.ll-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px;font-size:13px;font-weight:700;transition:all .25s;}
+.ll-box.current{border-color:var(--accent);color:var(--accent);box-shadow:0 0 6px rgba(84,100,20,0.2);}
+.ll-box.visited{border-color:var(--accent4);color:var(--accent4);}
+.ll-arrow{padding:0 5px;color:var(--muted);font-size:14px;}
+.ll-null{padding:6px 8px;font-size:10px;color:var(--muted);border:1px dashed var(--border);border-radius:5px;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+  <div class="header-tag">// Advanced Reference</div>
+  <h1>DSA <span>Explorer</span></h1>
+  <p class="header-sub">Visual walkthroughs · Complexity analysis · Real-world use cases · Production code</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num">12</span><span class="stat-label">Algorithms</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Categories</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Views per algo</span></div>
+  </div>
+</header>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-title">Sorting</div>
+    <div class="nav-item active" onclick="showAlgo('quicksort')"><span class="nav-dot"></span>Quick Sort<span class="nav-badge">O(n log n)</span></div>
+    <div class="nav-item" onclick="showAlgo('mergesort')"><span class="nav-dot"></span>Merge Sort<span class="nav-badge">O(n log n)</span></div>
+    <div class="nav-item" onclick="showAlgo('heapsort')"><span class="nav-dot"></span>Heap Sort<span class="nav-badge">O(n log n)</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">Searching</div>
+    <div class="nav-item" onclick="showAlgo('binary')"><span class="nav-dot"></span>Binary Search<span class="nav-badge">O(log n)</span></div>
+    <div class="nav-item" onclick="showAlgo('linear')"><span class="nav-dot"></span>Linear Search<span class="nav-badge">O(n)</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">Graph &amp; Tree</div>
+    <div class="nav-item" onclick="showAlgo('bfs')"><span class="nav-dot"></span>BFS<span class="nav-badge">O(V+E)</span></div>
+    <div class="nav-item" onclick="showAlgo('dfs')"><span class="nav-dot"></span>DFS<span class="nav-badge">O(V+E)</span></div>
+    <div class="nav-item" onclick="showAlgo('dijkstra')"><span class="nav-dot"></span>Dijkstra<span class="nav-badge">O(E log V)</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">Dynamic Programming</div>
+    <div class="nav-item" onclick="showAlgo('lcs')"><span class="nav-dot"></span>LCS<span class="nav-badge">O(mn)</span></div>
+    <div class="nav-item" onclick="showAlgo('knapsack')"><span class="nav-dot"></span>0/1 Knapsack<span class="nav-badge">O(nW)</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">Data Structures</div>
+    <div class="nav-item" onclick="showAlgo('linkedlist')"><span class="nav-dot"></span>Linked List<span class="nav-badge">O(n)</span></div>
+    <div class="nav-item" onclick="showAlgo('hashtable')"><span class="nav-dot"></span>Hash Table<span class="nav-badge">O(1) avg</span></div>
+  </div>
+</nav>
+<div id="mainPanel"></div>
+</div>
+</div>
+<script>
+const ALGOS={
+quicksort:{category:'Sorting',title:'Quick Sort',desc:'Divide-and-conquer algorithm that selects a pivot, partitions elements around it, and recursively sorts sub-arrays. In-place with excellent cache performance.',
+  time_best:'O(n log n)',time_avg:'O(n log n)',time_worst:'O(n²)',space:'O(log n)',stable:false,
+  usecases:[{icon:'🗄️',title:'Database engines',desc:'Most SQL engines use introsort (quicksort variant) for sorting query result sets before returning.'},{icon:'🎮',title:'Game leaderboards',desc:'Sorting millions of player scores in real-time — cache-friendly access pattern dominates.'},{icon:'📦',title:'Standard libraries',desc:"C++ std::sort, Java Arrays.sort for primitives, Python's Timsort uses it for small partitions."},{icon:'🔍',title:'Top-K / QuickSelect',desc:'QuickSelect variant finds the kth element in O(n) average — used in median/quantile computation.'}],
+  when:['Need in-place sort with minimal memory','Working with primitive types in arrays','Average-case performance is acceptable','Data is randomized (good pivot selection)'],
+  avoid:['Already-sorted input without randomization (degrades to O(n²))','Stability is required — use merge sort','Worst-case guarantees are critical','Linked list structures (no random access)'],
+  viz:'sort',vizData:[64,34,25,12,22,11,90,45,7,38],
+  code:`<span class="kw">def</span> <span class="fn">quicksort</span>(arr, lo=<span class="num">0</span>, hi=<span class="kw">None</span>):\n    <span class="kw">if</span> hi <span class="kw">is</span> <span class="kw">None</span>: hi = len(arr) - <span class="num">1</span>\n    <span class="kw">if</span> lo >= hi: <span class="kw">return</span>\n    pivot_idx = <span class="fn">partition</span>(arr, lo, hi)\n    <span class="fn">quicksort</span>(arr, lo, pivot_idx - <span class="num">1</span>)\n    <span class="fn">quicksort</span>(arr, pivot_idx + <span class="num">1</span>, hi)\n\n<span class="kw">def</span> <span class="fn">partition</span>(arr, lo, hi):\n    <span class="cm"># Lomuto partition — pivot = last element</span>\n    pivot = arr[hi]\n    i = lo - <span class="num">1</span>\n    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(lo, hi):\n        <span class="kw">if</span> arr[j] <= pivot:\n            i += <span class="num">1</span>\n            arr[i], arr[j] = arr[j], arr[i]\n    arr[i+<span class="num">1</span>], arr[hi] = arr[hi], arr[i+<span class="num">1</span>]\n    <span class="kw">return</span> i + <span class="num">1</span>\n\n<span class="cm"># Production: use median-of-3 + insertion sort for small n</span>\n<span class="cm"># Python's sort() uses Timsort — prefer that in practice.</span>`},
+
+mergesort:{category:'Sorting',title:'Merge Sort',desc:'Stable divide-and-conquer sort. Recursively splits arrays to single elements then merges sorted halves. Guarantees O(n log n) in ALL cases.',
+  time_best:'O(n log n)',time_avg:'O(n log n)',time_worst:'O(n log n)',space:'O(n)',stable:true,
+  usecases:[{icon:'🔗',title:'Linked list sorting',desc:'Ideal — merge operations need no random access, unlike quicksort which degrades on lists.'},{icon:'📁',title:'External sort (disk)',desc:'Sorting data too large for RAM. Merge passes map perfectly to sequential disk I/O.'},{icon:'🧵',title:'Parallel sort',desc:'Sub-arrays are independent — embarrassingly parallelizable across CPU cores or machines.'},{icon:'📊',title:'Stable sort required',desc:'When equal keys must preserve original relative order, e.g., multi-column spreadsheet sorting.'}],
+  when:['Stability is required','Sorting linked lists','External / disk-based sorting','Parallel or distributed sort scenarios'],
+  avoid:['Memory is very constrained (requires O(n) extra space)','Small arrays — insertion sort wins','In-place sort is mandatory'],
+  viz:'sort',vizData:[38,27,43,3,9,82,10,55,17,26],
+  code:`<span class="kw">def</span> <span class="fn">mergesort</span>(arr):\n    <span class="kw">if</span> len(arr) <= <span class="num">1</span>: <span class="kw">return</span> arr\n    mid = len(arr) // <span class="num">2</span>\n    left  = <span class="fn">mergesort</span>(arr[:mid])\n    right = <span class="fn">mergesort</span>(arr[mid:])\n    <span class="kw">return</span> <span class="fn">merge</span>(left, right)\n\n<span class="kw">def</span> <span class="fn">merge</span>(left, right):\n    result, i, j = [], <span class="num">0</span>, <span class="num">0</span>\n    <span class="kw">while</span> i < len(left) <span class="kw">and</span> j < len(right):\n        <span class="kw">if</span> left[i] <= right[j]:   <span class="cm"># &lt;= preserves stability</span>\n            result.append(left[i]);  i += <span class="num">1</span>\n        <span class="kw">else</span>:\n            result.append(right[j]); j += <span class="num">1</span>\n    <span class="kw">return</span> result + left[i:] + right[j:]\n\n<span class="cm"># Bottom-up iterative version (no recursion overhead)</span>\n<span class="kw">def</span> <span class="fn">mergesort_iterative</span>(arr):\n    n = len(arr); width = <span class="num">1</span>\n    <span class="kw">while</span> width < n:\n        <span class="kw">for</span> lo <span class="kw">in</span> <span class="fn">range</span>(<span class="num">0</span>, n, width * <span class="num">2</span>):\n            mid = min(lo + width, n)\n            hi  = min(lo + width * <span class="num">2</span>, n)\n            arr[lo:hi] = <span class="fn">merge</span>(arr[lo:mid], arr[mid:hi])\n        width *= <span class="num">2</span>`},
+
+heapsort:{category:'Sorting',title:'Heap Sort',desc:'Builds a max-heap from the input, repeatedly extracts the maximum to produce a sorted array. In-place with guaranteed O(n log n) worst-case.',
+  time_best:'O(n log n)',time_avg:'O(n log n)',time_worst:'O(n log n)',space:'O(1)',stable:false,
+  usecases:[{icon:'⏱️',title:'Hard real-time systems',desc:'Guaranteed O(n log n) worst-case with O(1) space — no surprise latency spikes unlike quicksort.'},{icon:'🏆',title:'Priority queues',desc:'The binary heap underlying heapsort powers most priority queue and task scheduler implementations.'},{icon:'💾',title:'Embedded / constrained',desc:'O(1) auxiliary space makes it ideal for microcontrollers and memory-constrained environments.'},{icon:'🔝',title:'Top-K selection',desc:'Extract K maximums in O(n + K log n) using a min-heap of size K — used in search result ranking.'}],
+  when:['O(n log n) worst-case guarantee is required','O(1) extra space is critical','Implementing priority queues','Real-time systems needing bounded sort latency'],
+  avoid:['Cache performance is critical — heapsort has poor locality vs quicksort','Stability is required','Data is nearly sorted — insertion sort can be faster'],
+  viz:'sort',vizData:[5,13,2,25,7,17,20,8,4,15],
+  code:`<span class="kw">def</span> <span class="fn">heapsort</span>(arr):\n    n = len(arr)\n    <span class="cm"># Phase 1: Build max-heap</span>\n    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n // <span class="num">2</span> - <span class="num">1</span>, -<span class="num">1</span>, -<span class="num">1</span>):\n        <span class="fn">sift_down</span>(arr, n, i)\n    <span class="cm"># Phase 2: Extract elements one by one</span>\n    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="num">1</span>, <span class="num">0</span>, -<span class="num">1</span>):\n        arr[<span class="num">0</span>], arr[i] = arr[i], arr[<span class="num">0</span>]\n        <span class="fn">sift_down</span>(arr, i, <span class="num">0</span>)\n\n<span class="kw">def</span> <span class="fn">sift_down</span>(arr, n, i):\n    largest = i\n    left, right = <span class="num">2</span>*i+<span class="num">1</span>, <span class="num">2</span>*i+<span class="num">2</span>\n    <span class="kw">if</span> left  < n <span class="kw">and</span> arr[left]  > arr[largest]: largest = left\n    <span class="kw">if</span> right < n <span class="kw">and</span> arr[right] > arr[largest]: largest = right\n    <span class="kw">if</span> largest != i:\n        arr[i], arr[largest] = arr[largest], arr[i]\n        <span class="fn">sift_down</span>(arr, n, largest)`},
+
+binary:{category:'Searching',title:'Binary Search',desc:'Efficiently locates a target in a sorted array by repeatedly halving the search space. Requires sorted input. Foundational to B-trees, range queries, and monotonic optimization.',
+  time_best:'O(1)',time_avg:'O(log n)',time_worst:'O(log n)',space:'O(1)',stable:true,
+  usecases:[{icon:'📚',title:'Database B-trees',desc:'Every B-tree equality/range query performs binary search across sorted node keys.'},{icon:'📦',title:'Package versioning',desc:'npm, pip, cargo use binary search on sorted version arrays to find compatible ranges.'},{icon:'🔬',title:'Binary search on answer',desc:'Find minimum/maximum value satisfying a monotonic predicate — classic competitive programming pattern.'},{icon:'🗺️',title:'IP routing tables',desc:'Longest prefix matching uses binary search on sorted CIDR ranges in router hardware.'}],
+  when:['Data is sorted (or sortable once)','Repeated search operations on the same data','Search space is monotonic (binary search on answer)','Read-heavy, write-rare workloads'],
+  avoid:['Unsorted data (sort cost may outweigh gains for single searches)','Very small arrays (<16 elements — branch cost negates benefit)','Frequent insertions (use BST instead)'],
+  viz:'search',vizData:[2,5,8,12,16,23,38,45,56,72,91],searchTarget:38,
+  code:`<span class="kw">def</span> <span class="fn">binary_search</span>(arr, target):\n    lo, hi = <span class="num">0</span>, len(arr) - <span class="num">1</span>\n    <span class="kw">while</span> lo <= hi:\n        mid = lo + (hi - lo) // <span class="num">2</span>  <span class="cm"># avoids overflow vs (lo+hi)//2</span>\n        <span class="kw">if</span>   arr[mid] == target: <span class="kw">return</span> mid\n        <span class="kw">elif</span> arr[mid]  < target: lo = mid + <span class="num">1</span>\n        <span class="kw">else</span>:                    hi = mid - <span class="num">1</span>\n    <span class="kw">return</span> -<span class="num">1</span>\n\n<span class="cm"># Lower bound: index of first element >= target</span>\n<span class="kw">def</span> <span class="fn">lower_bound</span>(arr, target):\n    lo, hi = <span class="num">0</span>, len(arr)\n    <span class="kw">while</span> lo < hi:\n        mid = (lo + hi) // <span class="num">2</span>\n        <span class="kw">if</span> arr[mid] < target: lo = mid + <span class="num">1</span>\n        <span class="kw">else</span>: hi = mid\n    <span class="kw">return</span> lo\n\n<span class="cm"># Binary search on answer pattern</span>\n<span class="kw">def</span> <span class="fn">find_minimum_capacity</span>(feasible_fn, lo, hi):\n    <span class="cm"># find smallest value in [lo,hi] where feasible_fn is True</span>\n    <span class="kw">while</span> lo < hi:\n        mid = (lo + hi) // <span class="num">2</span>\n        <span class="kw">if</span> <span class="fn">feasible_fn</span>(mid): hi = mid\n        <span class="kw">else</span>: lo = mid + <span class="num">1</span>\n    <span class="kw">return</span> lo`},
+
+linear:{category:'Searching',title:'Linear Search',desc:'Scans elements sequentially until the target is found. No preconditions. Simple but O(n) — the baseline every search algorithm tries to beat.',
+  time_best:'O(1)',time_avg:'O(n)',time_worst:'O(n)',space:'O(1)',stable:true,
+  usecases:[{icon:'🔍',title:'Small unsorted data',desc:'For arrays under ~16 elements, linear search beats binary due to branch predictor behavior.'},{icon:'⚡',title:'Single search',desc:'Searching once: sorting first costs O(n log n), which exceeds one O(n) linear scan.'},{icon:'🌊',title:'Streaming / generators',desc:'Unknown-length streams or lazy generators where random access is impossible.'},{icon:'🧮',title:'Linked list scan',desc:'No random access in linked structures means sequential scan is the only option.'}],
+  when:['Data is unsorted and searched rarely','Array is very small (< 16 elements)','Data comes from a stream or iterator','Searching linked or sequential structures'],
+  avoid:['Large sorted arrays — binary search is O(log n)','Repeated searches on same data — sort once first','Performance-critical hot paths with large N'],
+  viz:'linearsearch',vizData:[14,3,91,27,7,55,38,12,66,44],searchTarget:38,
+  code:`<span class="kw">def</span> <span class="fn">linear_search</span>(arr, target):\n    <span class="kw">for</span> i, val <span class="kw">in</span> <span class="fn">enumerate</span>(arr):\n        <span class="kw">if</span> val == target:\n            <span class="kw">return</span> i\n    <span class="kw">return</span> -<span class="num">1</span>\n\n<span class="cm"># Move-to-front: self-organizing search</span>\n<span class="cm"># Amortizes cost for frequently accessed elements</span>\n<span class="kw">def</span> <span class="fn">linear_search_mtf</span>(arr, target):\n    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(len(arr)):\n        <span class="kw">if</span> arr[i] == target:\n            arr.insert(<span class="num">0</span>, arr.pop(i))  <span class="cm"># promote to front</span>\n            <span class="kw">return</span> <span class="num">0</span>\n    <span class="kw">return</span> -<span class="num">1</span>\n\n<span class="cm"># Find all indices</span>\n<span class="kw">def</span> <span class="fn">find_all</span>(arr, target):\n    <span class="kw">return</span> [i <span class="kw">for</span> i, v <span class="kw">in</span> <span class="fn">enumerate</span>(arr) <span class="kw">if</span> v == target]`},
+
+bfs:{category:'Graph & Tree',title:'BFS — Breadth-First Search',desc:'Explores a graph level by level using a queue. Finds shortest paths in unweighted graphs. Complete — guaranteed to find a solution if one exists.',
+  time_best:'O(V+E)',time_avg:'O(V+E)',time_worst:'O(V+E)',space:'O(V)',stable:true,
+  usecases:[{icon:'🗺️',title:'Shortest path (unweighted)',desc:'GPS on unweighted maps, social network "degrees of separation" — finds fewest hops.'},{icon:'🌐',title:'Web crawlers',desc:'Crawl pages breadth-first so near (in link distance) pages are indexed before far ones.'},{icon:'🧩',title:'Puzzle solving',desc:'Word ladders, 15-puzzle — BFS guarantees the minimum number of moves to goal.'},{icon:'📡',title:'Network broadcast',desc:'Flood-fill, infection simulation, broadcast propagation in network topology.'}],
+  when:['Shortest path in an unweighted graph','Level-order tree traversal','Finding nearest node with a property','Graph is wide/shallow — BFS suits its shape'],
+  avoid:['Weighted graphs — use Dijkstra','Memory constrained with a very wide graph (DFS uses O(depth) vs O(width)','All paths need enumeration — use DFS'],
+  viz:'tree',vizType:'bfs',
+  code:`<span class="kw">from</span> collections <span class="kw">import</span> deque\n\n<span class="kw">def</span> <span class="fn">bfs</span>(graph, start, target=<span class="kw">None</span>):\n    visited = {start}\n    queue   = deque([(start, [start])])  <span class="cm"># (node, path)</span>\n    <span class="kw">while</span> queue:\n        node, path = queue.popleft()\n        <span class="kw">if</span> node == target: <span class="kw">return</span> path\n        <span class="kw">for</span> nb <span class="kw">in</span> graph[node]:\n            <span class="kw">if</span> nb <span class="kw">not</span> <span class="kw">in</span> visited:\n                visited.add(nb)\n                queue.append((nb, path + [nb]))\n    <span class="kw">return</span> visited  <span class="cm"># all reachable if no target</span>\n\n<span class="cm"># BFS with level / distance tracking</span>\n<span class="kw">def</span> <span class="fn">bfs_distance</span>(graph, start):\n    dist = {start: <span class="num">0</span>}\n    queue = deque([start])\n    <span class="kw">while</span> queue:\n        node = queue.popleft()\n        <span class="kw">for</span> nb <span class="kw">in</span> graph[node]:\n            <span class="kw">if</span> nb <span class="kw">not</span> <span class="kw">in</span> dist:\n                dist[nb] = dist[node] + <span class="num">1</span>\n                queue.append(nb)\n    <span class="kw">return</span> dist`},
+
+dfs:{category:'Graph & Tree',title:'DFS — Depth-First Search',desc:'Explores as deep as possible down one path before backtracking. Uses a stack (or recursion). Space-efficient for deep graphs; foundational for topological sort and cycle detection.',
+  time_best:'O(V+E)',time_avg:'O(V+E)',time_worst:'O(V+E)',space:'O(V)',stable:true,
+  usecases:[{icon:'🔄',title:'Topological sort',desc:'Dependency resolution in build systems (Make, Gradle, Bazel) and task schedulers.'},{icon:'🔮',title:'Maze generation/solving',desc:'Recursive backtracking maps directly to DFS — generates and solves perfect mazes.'},{icon:'💻',title:'Compiler analysis',desc:'Cycle detection in import graphs, dead code elimination, dominance tree construction.'},{icon:'♟️',title:'Game tree search',desc:'Minimax / alpha-beta pruning in chess/Go engines traverses game trees depth-first.'}],
+  when:['Cycle detection in directed/undirected graphs','Topological ordering of a DAG','Memory constrained (O(depth) vs BFS O(width))','Exhaustive path enumeration with backtracking'],
+  avoid:['Shortest path — BFS is correct for unweighted','Graph has very deep paths (stack overflow risk)','Target is near the root — BFS reaches it faster'],
+  viz:'tree',vizType:'dfs',
+  code:`<span class="cm"># Recursive DFS</span>\n<span class="kw">def</span> <span class="fn">dfs</span>(graph, node, visited=<span class="kw">None</span>):\n    <span class="kw">if</span> visited <span class="kw">is</span> <span class="kw">None</span>: visited = set()\n    visited.add(node)\n    <span class="kw">for</span> nb <span class="kw">in</span> graph[node]:\n        <span class="kw">if</span> nb <span class="kw">not</span> <span class="kw">in</span> visited:\n            <span class="fn">dfs</span>(graph, nb, visited)\n    <span class="kw">return</span> visited\n\n<span class="cm"># Iterative DFS — avoids stack overflow on deep graphs</span>\n<span class="kw">def</span> <span class="fn">dfs_iterative</span>(graph, start):\n    visited, stack, order = set(), [start], []\n    <span class="kw">while</span> stack:\n        node = stack.pop()\n        <span class="kw">if</span> node <span class="kw">not</span> <span class="kw">in</span> visited:\n            visited.add(node); order.append(node)\n            stack.extend(graph[node])\n    <span class="kw">return</span> order\n\n<span class="cm"># Topological sort via Kahn's algorithm (BFS-based)</span>\n<span class="kw">from</span> collections <span class="kw">import</span> deque\n<span class="kw">def</span> <span class="fn">topo_sort</span>(graph, n):\n    indeg = [<span class="num">0</span>]*n\n    <span class="kw">for</span> u <span class="kw">in</span> graph:\n        <span class="kw">for</span> v <span class="kw">in</span> graph[u]: indeg[v]+=<span class="num">1</span>\n    q = deque(i <span class="kw">for</span> i <span class="kw">in</span> range(n) <span class="kw">if</span> indeg[i]==<span class="num">0</span>)\n    order=[]\n    <span class="kw">while</span> q:\n        u=q.popleft(); order.append(u)\n        <span class="kw">for</span> v <span class="kw">in</span> graph[u]:\n            indeg[v]-=<span class="num">1</span>\n            <span class="kw">if</span> indeg[v]==<span class="num">0</span>: q.append(v)\n    <span class="kw">return</span> order <span class="kw">if</span> len(order)==n <span class="kw">else</span> []`},
+
+dijkstra:{category:'Graph & Tree',title:"Dijkstra's Algorithm",desc:'Finds shortest paths from a source to all vertices in a weighted graph with non-negative edges. Uses a priority queue to greedily relax edges in order of distance.',
+  time_best:'O(E log V)',time_avg:'O(E log V)',time_worst:'O(E log V)',space:'O(V)',stable:true,
+  usecases:[{icon:'🗺️',title:'GPS navigation',desc:'Google Maps, Waze, and Apple Maps all use Dijkstra variants for shortest driving routes.'},{icon:'🌐',title:'Internet routing (OSPF)',desc:'Open Shortest Path First protocol runs Dijkstra on link-state graphs to compute routing tables.'},{icon:'✈️',title:'Flight optimization',desc:'Cheapest/fastest flight connections — airports as nodes, routes as weighted edges.'},{icon:'🎮',title:'Game pathfinding',desc:'A* is Dijkstra with a heuristic — used in nearly every real-time strategy and RPG game engine.'}],
+  when:['Weighted graph with non-negative edge weights','Single-source shortest path problem','Sparse graphs where E << V²','Real-time pathfinding with priority queue'],
+  avoid:['Negative edge weights — use Bellman-Ford O(VE)','All-pairs shortest paths — use Floyd-Warshall O(V³)','Unweighted graphs — BFS is O(V+E) vs O(E log V)'],
+  viz:'tree',vizType:'dijkstra',
+  code:`<span class="kw">import</span> heapq\n\n<span class="kw">def</span> <span class="fn">dijkstra</span>(graph, source):\n    <span class="cm"># graph: {node: [(neighbor, weight), ...]}</span>\n    dist = {n: float('inf') <span class="kw">for</span> n <span class="kw">in</span> graph}\n    prev = {n: <span class="kw">None</span> <span class="kw">for</span> n <span class="kw">in</span> graph}\n    dist[source] = <span class="num">0</span>\n    pq = [(<span class="num">0</span>, source)]\n    <span class="kw">while</span> pq:\n        d, u = heapq.heappop(pq)\n        <span class="kw">if</span> d > dist[u]: <span class="kw">continue</span>  <span class="cm"># stale entry</span>\n        <span class="kw">for</span> v, w <span class="kw">in</span> graph[u]:\n            <span class="kw">if</span> dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n                prev[v] = u\n                heapq.heappush(pq, (dist[v], v))\n    <span class="kw">return</span> dist, prev\n\n<span class="kw">def</span> <span class="fn">get_path</span>(prev, target):\n    path, node = [], target\n    <span class="kw">while</span> node <span class="kw">is</span> <span class="kw">not</span> <span class="kw">None</span>:\n        path.append(node); node = prev[node]\n    <span class="kw">return</span> path[::-<span class="num">1</span>]`},
+
+lcs:{category:'Dynamic Programming',title:'LCS — Longest Common Subsequence',desc:'Finds the longest sequence present in both strings (not necessarily contiguous). Classic DP with optimal substructure and overlapping subproblems.',
+  time_best:'O(mn)',time_avg:'O(mn)',time_worst:'O(mn)',space:'O(mn)',stable:true,
+  usecases:[{icon:'📝',title:'Git diff / patch',desc:'diff and patch tools use LCS to compute the minimal edit distance between file versions.'},{icon:'🧬',title:'Bioinformatics',desc:'DNA/RNA sequence alignment — finding common genetic subsequences across species.'},{icon:'🔒',title:'Plagiarism detection',desc:'Measuring text similarity by finding the longest shared subsequences between documents.'},{icon:'📊',title:'3-way merge (Git)',desc:'Three-way merge uses LCS to identify regions of conflict between branches.'}],
+  when:['Comparing two sequences for similarity','Minimal edit distance computation','Subsequence (not substring) matching','Diff/patch generation between versions'],
+  avoid:['Need contiguous match — use longest common substring','Approximate matching — use Smith-Waterman or edit distance','Very long strings — use sparse DP or suffix arrays'],
+  viz:'dp',vizType:'lcs',dpS1:'ABCBDAB',dpS2:'BDCAB',
+  code:`<span class="kw">def</span> <span class="fn">lcs_length</span>(s1, s2):\n    m, n = len(s1), len(s2)\n    dp = [[<span class="num">0</span>]*(n+<span class="num">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(m+<span class="num">1</span>)]\n    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="num">1</span>, m+<span class="num">1</span>):\n        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="num">1</span>, n+<span class="num">1</span>):\n            <span class="kw">if</span> s1[i-<span class="num">1</span>] == s2[j-<span class="num">1</span>]:\n                dp[i][j] = dp[i-<span class="num">1</span>][j-<span class="num">1</span>] + <span class="num">1</span>\n            <span class="kw">else</span>:\n                dp[i][j] = max(dp[i-<span class="num">1</span>][j], dp[i][j-<span class="num">1</span>])\n    <span class="kw">return</span> dp[m][n]\n\n<span class="kw">def</span> <span class="fn">reconstruct</span>(s1, s2, dp):\n    i, j, res = len(s1), len(s2), []\n    <span class="kw">while</span> i > <span class="num">0</span> <span class="kw">and</span> j > <span class="num">0</span>:\n        <span class="kw">if</span> s1[i-<span class="num">1</span>] == s2[j-<span class="num">1</span>]:\n            res.append(s1[i-<span class="num">1</span>]); i -= <span class="num">1</span>; j -= <span class="num">1</span>\n        <span class="kw">elif</span> dp[i-<span class="num">1</span>][j] >= dp[i][j-<span class="num">1</span>]: i -= <span class="num">1</span>\n        <span class="kw">else</span>: j -= <span class="num">1</span>\n    <span class="kw">return</span> ''.join(reversed(res))\n\n<span class="cm"># Space-optimized O(n) — rolling two rows</span>\n<span class="kw">def</span> <span class="fn">lcs_optimized</span>(s1, s2):\n    prev = [<span class="num">0</span>] * (len(s2)+<span class="num">1</span>)\n    <span class="kw">for</span> c <span class="kw">in</span> s1:\n        curr = [<span class="num">0</span>] * (len(s2)+<span class="num">1</span>)\n        <span class="kw">for</span> j, d <span class="kw">in</span> enumerate(s2, <span class="num">1</span>):\n            curr[j] = prev[j-<span class="num">1</span>]+<span class="num">1</span> <span class="kw">if</span> c==d <span class="kw">else</span> max(prev[j], curr[j-<span class="num">1</span>])\n        prev = curr\n    <span class="kw">return</span> prev[-<span class="num">1</span>]`},
+
+knapsack:{category:'Dynamic Programming',title:'0/1 Knapsack',desc:'Given items with weights and values, find the maximum value fitting within a weight capacity. Each item is taken or skipped. Foundational DP problem with binary decisions.',
+  time_best:'O(nW)',time_avg:'O(nW)',time_worst:'O(nW)',space:'O(nW)',stable:true,
+  usecases:[{icon:'💼',title:'Budget allocation',desc:'Maximize ROI across projects given a fixed budget and indivisible investment units.'},{icon:'☁️',title:'Cloud cost optimization',desc:'Select which workloads to schedule given CPU/memory constraints to maximize throughput.'},{icon:'✂️',title:'Cutting stock problem',desc:'Manufacturing: cut raw material to minimize waste while meeting production demand.'},{icon:'🔐',title:'Subset sum / crypto',desc:'Subset sum is a special case — underlies early Merkle-Hellman public-key cryptosystems.'}],
+  when:['Binary include/exclude decisions on items','Fixed capacity constraint exists','Optimal substructure holds over sub-capacities','Items are indivisible (use fractional knapsack for divisible)'],
+  avoid:['Divisible items — greedy fractional knapsack is O(n log n) and optimal','W is enormous — use branch-and-bound or FPTAS approximation','Multiple copies of items — use unbounded knapsack variant'],
+  viz:'dp',vizType:'knapsack',
+  code:`<span class="kw">def</span> <span class="fn">knapsack</span>(weights, values, W):\n    n = len(weights)\n    dp = [[<span class="num">0</span>]*(W+<span class="num">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(n+<span class="num">1</span>)]\n    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="num">1</span>, n+<span class="num">1</span>):\n        w, v = weights[i-<span class="num">1</span>], values[i-<span class="num">1</span>]\n        <span class="kw">for</span> c <span class="kw">in</span> range(W+<span class="num">1</span>):\n            <span class="kw">if</span> w > c: dp[i][c] = dp[i-<span class="num">1</span>][c]\n            <span class="kw">else</span>:    dp[i][c] = max(dp[i-<span class="num">1</span>][c], dp[i-<span class="num">1</span>][c-w]+v)\n    <span class="kw">return</span> dp[n][W]\n\n<span class="cm"># Space-optimized O(W) — reverse iteration prevents reuse</span>\n<span class="kw">def</span> <span class="fn">knapsack_1d</span>(weights, values, W):\n    dp = [<span class="num">0</span>] * (W+<span class="num">1</span>)\n    <span class="kw">for</span> w, v <span class="kw">in</span> zip(weights, values):\n        <span class="kw">for</span> c <span class="kw">in</span> range(W, w-<span class="num">1</span>, -<span class="num">1</span>):\n            dp[c] = max(dp[c], dp[c-w] + v)\n    <span class="kw">return</span> dp[W]\n\n<span class="cm"># Traceback — recover chosen items</span>\n<span class="kw">def</span> <span class="fn">traceback</span>(weights, dp, W):\n    chosen, i, c = [], len(weights), W\n    <span class="kw">while</span> i > <span class="num">0</span> <span class="kw">and</span> c > <span class="num">0</span>:\n        <span class="kw">if</span> dp[i][c] != dp[i-<span class="num">1</span>][c]:\n            chosen.append(i-<span class="num">1</span>); c -= weights[i-<span class="num">1</span>]\n        i -= <span class="num">1</span>\n    <span class="kw">return</span> chosen`},
+
+linkedlist:{category:'Data Structures',title:'Linked List',desc:"Sequence of nodes: each holds data and a pointer to the next. O(1) insert/delete at known position, O(n) access. Foundation of stacks, queues, LRU caches, and adjacency lists.",
+  time_best:'O(1)',time_avg:'O(n)',time_worst:'O(n)',space:'O(n)',stable:true,
+  usecases:[{icon:'↩️',title:'Undo/redo history',desc:'Text editors store operations as linked list nodes — O(1) push/pop for undo stacks.'},{icon:'🔁',title:'LRU cache',desc:'Doubly linked list + hash map = O(1) get and put. Used in Redis, browser page cache.'},{icon:'📋',title:'Adjacency list (graphs)',desc:"Space-efficient graph representation — each vertex's neighbor list is a linked list."},{icon:'🧵',title:'Memory allocators',desc:'Free lists in malloc implementations maintain freed memory blocks as a linked list.'}],
+  when:["Frequent O(1) insertions/deletions at a known pointer","Don't need random access by index","Implementing stacks, queues, or deques","Memory fragmentation is acceptable"],
+  avoid:['Random access by index needed — use array O(1) vs O(n)','Cache-sensitive code — linked nodes thrash CPU cache','Memory overhead matters — each node carries pointer overhead'],
+  viz:'linkedlist',
+  code:`<span class="kw">class</span> <span class="fn">Node</span>:\n    <span class="kw">def</span> <span class="fn">__init__</span>(self, val=<span class="num">0</span>, nxt=<span class="kw">None</span>):\n        self.val = val; self.next = nxt\n\n<span class="kw">class</span> <span class="fn">LinkedList</span>:\n    <span class="kw">def</span> <span class="fn">__init__</span>(self): self.head = <span class="kw">None</span>\n\n    <span class="kw">def</span> <span class="fn">prepend</span>(self, val):        <span class="cm"># O(1)</span>\n        self.head = <span class="fn">Node</span>(val, self.head)\n\n    <span class="kw">def</span> <span class="fn">delete</span>(self, val):         <span class="cm"># O(n)</span>\n        dummy = <span class="fn">Node</span>(<span class="num">0</span>, self.head); prev = dummy\n        <span class="kw">while</span> prev.next:\n            <span class="kw">if</span> prev.next.val == val:\n                prev.next = prev.next.next; <span class="kw">break</span>\n            prev = prev.next\n        self.head = dummy.next\n\n    <span class="kw">def</span> <span class="fn">reverse</span>(self):             <span class="cm"># O(n), O(1) space</span>\n        prev, curr = <span class="kw">None</span>, self.head\n        <span class="kw">while</span> curr:\n            nxt = curr.next\n            curr.next = prev\n            prev, curr = curr, nxt\n        self.head = prev\n\n    <span class="kw">def</span> <span class="fn">has_cycle</span>(self):           <span class="cm"># Floyd's tortoise & hare</span>\n        slow = fast = self.head\n        <span class="kw">while</span> fast <span class="kw">and</span> fast.next:\n            slow = slow.next; fast = fast.next.next\n            <span class="kw">if</span> slow == fast: <span class="kw">return</span> <span class="kw">True</span>\n        <span class="kw">return</span> <span class="kw">False</span>`},
+
+hashtable:{category:'Data Structures',title:'Hash Table',desc:'Maps keys to values via a hash function. Amortized O(1) insert, lookup, delete. The most versatile data structure in production systems — used almost everywhere.',
+  time_best:'O(1)',time_avg:'O(1)',time_worst:'O(n)',space:'O(n)',stable:false,
+  usecases:[{icon:'🗃️',title:'Database hash indexes',desc:'Hash indexes in PostgreSQL/MySQL give O(1) equality lookups vs B-tree O(log n).'},{icon:'⚡',title:'Distributed caches',desc:'Redis and Memcached — the entire architecture is built on distributed hash tables (DHT).'},{icon:'🔍',title:'Compiler symbol tables',desc:'Variable name → address mapping during compilation; scope resolution at runtime.'},{icon:'🔐',title:'Content-addressable storage',desc:'Git objects, IPFS nodes — hash of content serves as the storage key for deduplication.'}],
+  when:['Fast O(1) average lookup, insert, and delete','Deduplication or set membership testing','Grouping/counting (frequency/histogram maps)','Implementing sets, maps, and caches'],
+  avoid:['Ordered traversal needed — use BST or sorted map','Memory very constrained — per-entry overhead matters','Hard worst-case O(1) required — hash tables can degrade'],
+  viz:'hashtable',
+  code:`<span class="kw">class</span> <span class="fn">HashTable</span>:\n    <span class="kw">def</span> <span class="fn">__init__</span>(self, cap=<span class="num">16</span>, load=<span class="num">0.75</span>):\n        self.cap = cap; self.load = load\n        self.size = <span class="num">0</span>\n        self.buckets = [[] <span class="kw">for</span> _ <span class="kw">in</span> range(cap)]\n\n    <span class="kw">def</span> <span class="fn">_idx</span>(self, key): <span class="kw">return</span> hash(key) % self.cap\n\n    <span class="kw">def</span> <span class="fn">put</span>(self, key, val):\n        b = self.buckets[self.<span class="fn">_idx</span>(key)]\n        <span class="kw">for</span> i,(k,v) <span class="kw">in</span> enumerate(b):\n            <span class="kw">if</span> k==key: b[i]=(key,val); <span class="kw">return</span>\n        b.append((key,val)); self.size+=<span class="num">1</span>\n        <span class="kw">if</span> self.size/self.cap > self.load:\n            self.<span class="fn">_resize</span>()\n\n    <span class="kw">def</span> <span class="fn">get</span>(self, key):\n        <span class="kw">for</span> k,v <span class="kw">in</span> self.buckets[self.<span class="fn">_idx</span>(key)]:\n            <span class="kw">if</span> k==key: <span class="kw">return</span> v\n        <span class="kw">raise</span> KeyError(key)\n\n    <span class="kw">def</span> <span class="fn">_resize</span>(self):  <span class="cm"># amortized O(1) — doubles capacity</span>\n        old=self.buckets; self.cap*=<span class="num">2</span>\n        self.buckets=[[] <span class="kw">for</span> _ <span class="kw">in</span> range(self.cap)]\n        self.size=<span class="num">0</span>\n        <span class="kw">for</span> b <span class="kw">in</span> old:\n            <span class="kw">for</span> k,v <span class="kw">in</span> b: self.<span class="fn">put</span>(k,v)`}
+};
+
+// ── STATE & ANIMATION ──
+let currentAlgo='quicksort', vizState={}, animTimer=null;
+function stopViz(){if(animTimer){clearTimeout(animTimer);animTimer=null;}}
+
+// ── NAVIGATION ──
+function showAlgo(id){
+  currentAlgo=id; stopViz();
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el=>{if(el.getAttribute('onclick')===`showAlgo('${id}')`)el.classList.add('active');});
+  render(id);
+}
+
+function render(id){
+  const a=ALGOS[id];
+  document.getElementById('mainPanel').innerHTML=`
+  <div class="algo-card">
+    <div class="card-header">
+      <div>
+        <div class="card-category">${a.category}</div>
+        <div class="card-title">${a.title}</div>
+        <div class="card-desc">${a.desc}</div>
+      </div>
+      <div class="complexity-pills">
+        <span class="pill pill-best">Best: ${a.time_best}</span>
+        <span class="pill pill-time">Avg: ${a.time_avg}</span>
+        <span class="pill pill-worst">Worst: ${a.time_worst}</span>
+        <span class="pill pill-space">Space: ${a.space}</span>
+        <span class="pill ${a.stable?'pill-best':'pill-worst'}">${a.stable?'Stable':'Unstable'}</span>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'viz')">▶ Visualize</div>
+      <div class="tab" onclick="switchTab(this,'complexity')">⧖ Complexity</div>
+      <div class="tab" onclick="switchTab(this,'usecases')">⚡ Use Cases</div>
+      <div class="tab" onclick="switchTab(this,'code')">{ } Code</div>
+    </div>
+    <div class="tab-content active" id="tab-viz">${buildVizHTML(a)}</div>
+    <div class="tab-content" id="tab-complexity">${buildComplexityHTML(a)}</div>
+    <div class="tab-content" id="tab-usecases">${buildUsecasesHTML(a)}</div>
+    <div class="tab-content" id="tab-code">${buildCodeHTML(a)}</div>
+  </div>`;
+  initViz(a);
+}
+
+function switchTab(el,name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// ── VIZ HTML BUILDERS ──
+function buildVizHTML(a){
+  if(a.viz==='sort') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startSort()">▶ Play</button>
+      <button class="viz-btn" onclick="stepSort()">Step →</button>
+      <button class="viz-btn" onclick="resetSort()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="50" max="900" value="500" style="width:75px"/></div>
+      <span class="step-counter" id="stepCounter">Step 0</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>Comparing</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Swapping</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>Pivot</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div>Sorted</div>
+    </div>
+    <div class="viz-array" id="vizArray"></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Press Play or Step.</div>`;
+
+  if(a.viz==='search') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startBSearch()">▶ Play</button>
+      <button class="viz-btn" onclick="stepBSearch()">Step →</button>
+      <button class="viz-btn" onclick="resetBSearch()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="100" max="1000" value="600" style="width:75px"/></div>
+      <span class="step-counter" id="stepCounter">Step 0</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>Search range</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Mid pointer</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--muted);opacity:.3"></div>Eliminated</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div>Found</div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Target: <strong style="color:var(--accent)">${a.searchTarget}</strong></p>
+    <div class="search-array" id="vizSearch"></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Sorted array. Press Play.</div>`;
+
+  if(a.viz==='linearsearch') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startLSearch()">▶ Play</button>
+      <button class="viz-btn" onclick="stepLSearch()">Step →</button>
+      <button class="viz-btn" onclick="resetLSearch()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="100" max="1000" value="600" style="width:75px"/></div>
+      <span class="step-counter" id="stepCounter">Step 0</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Checking</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--muted);opacity:.3"></div>Checked</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div>Found</div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Target: <strong style="color:var(--accent)">${a.searchTarget}</strong></p>
+    <div class="search-array" id="vizSearch"></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Unsorted array. Press Play.</div>`;
+
+  if(a.viz==='tree') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startTree()">▶ Play</button>
+      <button class="viz-btn" onclick="stepTree()">Step →</button>
+      <button class="viz-btn" onclick="resetTree()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="100" max="1200" value="700" style="width:75px"/></div>
+      <span class="step-counter" id="stepCounter">Step 0</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Current</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>Queued</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div>Visited</div>
+    </div>
+    <svg class="tree-viz" id="treeViz" viewBox="0 0 700 230"></svg>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Press Play to start traversal.</div>`;
+
+  if(a.viz==='dp'&&a.vizType==='lcs'){
+    const s1=a.dpS1,s2=a.dpS2;
+    let hdr=`<tr><th></th><th></th>${s2.split('').map(c=>`<th>${c}</th>`).join('')}</tr>`;
+    let rows='';
+    for(let i=0;i<=s1.length;i++){
+      rows+=`<tr><th>${i===0?'':i}</th><th>${i===0?'':s1[i-1]}</th>${Array(s2.length+1).fill(0).map((_,j)=>`<td id="dp_${i}_${j}">0</td>`).join('')}</tr>`;
+    }
+    return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startDP()">▶ Play</button>
+      <button class="viz-btn" onclick="stepDP()">Step →</button>
+      <button class="viz-btn" onclick="resetDP()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="50" max="800" value="400" style="width:75px"/></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">LCS(<strong style="color:var(--accent)">"${s1}"</strong>, <strong style="color:var(--accent3)">"${s2}"</strong>)</p>
+    <div class="dp-table-wrap"><table class="dp-table">${hdr}${rows}</table></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> dp[i][j] = LCS of s1[0..i-1] and s2[0..j-1].</div>`;}
+
+  if(a.viz==='dp'&&a.vizType==='knapsack'){
+    const weights=[2,3,4,5],values=[3,4,5,6],W=8;
+    let hdr=`<tr><th>Item</th><th>w,v</th>${Array.from({length:W+1},(_,i)=>`<th>${i}</th>`).join('')}</tr>`;
+    let rows='';
+    for(let i=0;i<=4;i++){
+      const wv=i===0?'—':`${weights[i-1]},${values[i-1]}`;
+      rows+=`<tr><th>${i===0?'—':'i'+i}</th><th style="font-size:10px;color:var(--muted)">${wv}</th>${Array(W+1).fill(0).map((_,j)=>`<td id="ks_${i}_${j}">0</td>`).join('')}</tr>`;
+    }
+    return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startDP()">▶ Play</button>
+      <button class="viz-btn" onclick="stepDP()">Step →</button>
+      <button class="viz-btn" onclick="resetDP()">↺ Reset</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="50" max="800" value="400" style="width:75px"/></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">weights=[2,3,4,5] values=[3,4,5,6] Capacity=<strong style="color:var(--accent)">8</strong></p>
+    <div class="dp-table-wrap"><table class="dp-table">${hdr}${rows}</table></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> dp[i][c] = max value using first i items with capacity c.</div>`;}
+
+  if(a.viz==='linkedlist') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="startLL()">▶ Traverse</button>
+      <button class="viz-btn" onclick="stepLL()">Step →</button>
+      <button class="viz-btn" onclick="resetLL()">↺ Reset</button>
+      <button class="viz-btn" onclick="reverseLL()">⇄ Reverse</button>
+      <div class="viz-speed"><span>Speed:</span><input type="range" id="vizSpeed" min="150" max="1200" value="600" style="width:75px"/></div>
+    </div>
+    <div class="ll-viz" id="llViz"></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Press Traverse to walk the list, or Reverse to reverse in-place (O(n), O(1) space).</div>`;
+
+  if(a.viz==='hashtable') return `
+    <div class="viz-controls">
+      <button class="viz-btn primary" onclick="hashInsert()">+ Insert</button>
+      <button class="viz-btn" onclick="hashSearch()">Search</button>
+      <button class="viz-btn" onclick="hashReset()">↺ Clear</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <input id="hashKey" placeholder="Key" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'Fira Code',monospace;font-size:12px;width:100px"/>
+      <input id="hashVal" placeholder="Value" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'Fira Code',monospace;font-size:12px;width:100px"/>
+    </div>
+    <div id="hashViz" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px"></div>
+    <div class="step-info" id="stepInfo"><strong>Ready.</strong> Enter a key/value and click Insert. Hash = sum of char codes % 8.</div>`;
+  return '';
+}
+
+// ── VIZ INIT ──
+function initViz(a){
+  if(a.viz==='sort') initSort(a);
+  else if(a.viz==='search') initBSearch(a);
+  else if(a.viz==='linearsearch') initLSearch(a);
+  else if(a.viz==='tree') initTree(a);
+  else if(a.viz==='dp') initDP(a);
+  else if(a.viz==='linkedlist') initLL();
+  else if(a.viz==='hashtable') initHash();
+}
+
+// ── SORT VIZ ──
+function initSort(a){
+  vizState={arr:[...a.vizData],steps:[],idx:0};
+  genSortSteps(a.title,[...a.vizData]);
+  renderSortArr(vizState.arr,{});
+}
+function genSortSteps(algo,a){
+  const steps=[],sorted=new Set();
+  if(algo==='Quick Sort'){
+    function qs(a,lo,hi){
+      if(lo>=hi){for(let i=lo;i<=hi;i++)sorted.add(i);return;}
+      steps.push({type:'pivot',idx:[hi],arr:[...a],sorted:new Set(sorted),msg:`<strong>Pivot:</strong> a[${hi}] = ${a[hi]}`});
+      let i=lo-1;
+      for(let j=lo;j<hi;j++){
+        steps.push({type:'cmp',idx:[j,hi],arr:[...a],sorted:new Set(sorted),msg:`Compare a[${j}]=${a[j]} with pivot ${a[hi]}`});
+        if(a[j]<=a[hi]){i++;if(i!==j){[a[i],a[j]]=[a[j],a[i]];steps.push({type:'swp',idx:[i,j],arr:[...a],sorted:new Set(sorted),msg:`<strong>Swap</strong> a[${i}]=${a[i]} ↔ a[${j}]=${a[j]}`});}}
+      }
+      [a[i+1],a[hi]]=[a[hi],a[i+1]];const pi=i+1;sorted.add(pi);
+      steps.push({type:'swp',idx:[i+1,hi],arr:[...a],sorted:new Set(sorted),msg:`<strong>Place pivot</strong> ${a[pi]} at index ${pi}`});
+      qs(a,lo,pi-1);qs(a,pi+1,hi);
+    }
+    qs(a,0,a.length-1);
+    for(let i=0;i<a.length;i++)sorted.add(i);
+    steps.push({type:'done',arr:[...a],sorted:new Set(sorted),msg:`<strong>Sorted!</strong> [${a.join(', ')}]`});
+  } else if(algo==='Merge Sort'){
+    function ms(a,lo,hi){
+      if(lo>=hi)return;
+      const mid=Math.floor((lo+hi)/2);ms(a,lo,mid);ms(a,mid+1,hi);
+      const L=a.slice(lo,mid+1),R=a.slice(mid+1,hi+1);
+      steps.push({type:'cmp',idx:[lo,hi],arr:[...a],sorted:new Set(sorted),msg:`<strong>Merge</strong> [${L.join(',')}] + [${R.join(',')}]`});
+      let i=0,j=0,k=lo;
+      while(i<L.length&&j<R.length){if(L[i]<=R[j])a[k++]=L[i++];else a[k++]=R[j++];steps.push({type:'swp',idx:[k-1],arr:[...a],sorted:new Set(sorted),msg:`Place ${a[k-1]} at [${k-1}]`});}
+      while(i<L.length){a[k++]=L[i++];steps.push({type:'swp',idx:[k-1],arr:[...a],sorted:new Set(sorted),msg:`Copy ${a[k-1]}`});}
+      while(j<R.length){a[k++]=R[j++];steps.push({type:'swp',idx:[k-1],arr:[...a],sorted:new Set(sorted),msg:`Copy ${a[k-1]}`});}
+    }
+    ms(a,0,a.length-1);for(let i=0;i<a.length;i++)sorted.add(i);
+    steps.push({type:'done',arr:[...a],sorted:new Set(sorted),msg:`<strong>Sorted!</strong> [${a.join(', ')}]`});
+  } else {
+    const n=a.length;
+    function sd(a,n,i){
+      let mx=i,l=2*i+1,r=2*i+2;
+      if(l<n&&a[l]>a[mx]){steps.push({type:'cmp',idx:[l,mx],arr:[...a],sorted:new Set(sorted),msg:`Compare child a[${l}]=${a[l]} > a[${mx}]=${a[mx]}`});mx=l;}
+      if(r<n&&a[r]>a[mx]){steps.push({type:'cmp',idx:[r,mx],arr:[...a],sorted:new Set(sorted),msg:`Compare child a[${r}]=${a[r]} > a[${mx}]=${a[mx]}`});mx=r;}
+      if(mx!==i){[a[i],a[mx]]=[a[mx],a[i]];steps.push({type:'swp',idx:[i,mx],arr:[...a],sorted:new Set(sorted),msg:`Swap a[${i}]=${a[i]} ↔ a[${mx}]=${a[mx]}`});sd(a,n,mx);}
+    }
+    for(let i=Math.floor(n/2)-1;i>=0;i--)sd(a,n,i);
+    steps.push({type:'cmp',idx:[],arr:[...a],sorted:new Set(sorted),msg:'<strong>Max-heap built.</strong> Extracting...'});
+    for(let i=n-1;i>0;i--){[a[0],a[i]]=[a[i],a[0]];sorted.add(i);steps.push({type:'swp',idx:[0,i],arr:[...a],sorted:new Set(sorted),msg:`Extract max → a[${i}]=${a[i]}`});sd(a,i,0);}
+    sorted.add(0);steps.push({type:'done',arr:[...a],sorted:new Set(sorted),msg:`<strong>Sorted!</strong> [${a.join(', ')}]`});
+  }
+  vizState.steps=steps;
+}
+function renderSortArr(arr,{cmp,swp,piv,sorted}={}){
+  const c=document.getElementById('vizArray');if(!c)return;
+  const mx=Math.max(...arr);
+  c.innerHTML=arr.map((v,i)=>{
+    const h=Math.max(8,Math.round((v/mx)*80));
+    let cls='';
+    if(cmp&&cmp.includes(i))cls='comparing';
+    else if(swp&&swp.includes(i))cls='swapping';
+    else if(piv&&piv.includes(i))cls='pivot';
+    else if(sorted&&sorted.has(i))cls='sorted';
+    return `<div class="bar ${cls}"><div class="bar-rect" style="height:${h}px"></div><div class="bar-label">${v}</div></div>`;
+  }).join('');
+}
+function applySortStep(s){
+  const hi={};
+  if(s.type==='cmp')hi.cmp=s.idx;
+  else if(s.type==='swp')hi.swp=s.idx;
+  else if(s.type==='pivot')hi.piv=s.idx;
+  if(s.sorted)hi.sorted=s.sorted;
+  renderSortArr(s.arr,hi);
+  const el=document.getElementById('stepInfo');if(el)el.innerHTML=s.msg;
+  const ct=document.getElementById('stepCounter');if(ct)ct.textContent=`Step ${vizState.idx}/${vizState.steps.length}`;
+}
+function stepSort(){if(vizState.idx>=vizState.steps.length)return;applySortStep(vizState.steps[vizState.idx++]);}
+function startSort(){
+  stopViz();
+  const sp=()=>1050-(document.getElementById('vizSpeed')?.value||500);
+  function go(){if(vizState.idx>=vizState.steps.length){stopViz();return;}stepSort();animTimer=setTimeout(go,sp());}
+  go();
+}
+function resetSort(){
+  stopViz();const a=ALGOS[currentAlgo];vizState.arr=[...a.vizData];vizState.idx=0;
+  genSortSteps(a.title,[...a.vizData]);renderSortArr(vizState.arr,{});
+  const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';
+  const ct=document.getElementById('stepCounter');if(ct)ct.textContent='Step 0';
+}
+
+// ── BINARY SEARCH VIZ ──
+function initBSearch(a){
+  vizState={arr:[...a.vizData],target:a.searchTarget,steps:[],idx:0};
+  genBSteps([...a.vizData],a.searchTarget);
+  renderSearch([...a.vizData],{});
+}
+function genBSteps(arr,t){
+  const s=[];let lo=0,hi=arr.length-1;
+  while(lo<=hi){
+    const mid=Math.floor((lo+hi)/2);
+    const match=arr[mid]===t;
+    s.push({lo,hi,mid,found:match,arr,msg:`lo=${lo} hi=${hi} → <strong>mid=${mid}</strong> → a[${mid}]=${arr[mid]} ${match?'<span style="color:var(--accent4)">== target ✓</span>':arr[mid]<t?'< target → right':'> target → left'}`});
+    if(match){s.push({lo,hi,mid,found:true,arr,msg:`<strong style="color:var(--accent4)">Found ${t} at index ${mid}!</strong> Comparisons: ${s.length}`});break;}
+    else if(arr[mid]<t)lo=mid+1;else hi=mid-1;
+  }
+  vizState.steps=s;
+}
+function renderSearch(arr,{lo=-1,hi=-1,mid=-1,found=false}={}){
+  const c=document.getElementById('vizSearch');if(!c)return;
+  c.innerHTML=arr.map((v,i)=>{
+    let cls='';
+    if(found&&i===mid)cls='found';
+    else if(i===mid)cls='active';
+    else if(lo>-1&&(i<lo||i>hi))cls='eliminated';
+    else if(lo>-1)cls='range';
+    return `<div class="s-box ${cls}">${v}</div>`;
+  }).join('');
+}
+function stepBSearch(){if(vizState.idx>=vizState.steps.length)return;const s=vizState.steps[vizState.idx++];renderSearch(s.arr,s);const el=document.getElementById('stepInfo');if(el)el.innerHTML=s.msg;const ct=document.getElementById('stepCounter');if(ct)ct.textContent=`Step ${vizState.idx}/${vizState.steps.length}`;}
+function startBSearch(){stopViz();const sp=()=>1050-(document.getElementById('vizSpeed')?.value||600);function go(){if(vizState.idx>=vizState.steps.length){stopViz();return;}stepBSearch();animTimer=setTimeout(go,sp());}go();}
+function resetBSearch(){stopViz();const a=ALGOS[currentAlgo];vizState.idx=0;genBSteps([...a.vizData],a.searchTarget);renderSearch([...a.vizData],{});const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';const ct=document.getElementById('stepCounter');if(ct)ct.textContent='Step 0';}
+
+// ── LINEAR SEARCH VIZ ──
+function initLSearch(a){
+  vizState={arr:[...a.vizData],target:a.searchTarget,steps:[],idx:0};
+  genLSteps([...a.vizData],a.searchTarget);
+  renderLArr([...a.vizData],-1,-1);
+}
+function genLSteps(arr,t){
+  const s=[];
+  for(let i=0;i<arr.length;i++){
+    const match=arr[i]===t;
+    s.push({i,found:match,arr,msg:`Check a[${i}]=${arr[i]} — ${match?'<span style="color:var(--accent4)">Match found!</span>':'No match, continue'}`});
+    if(match)break;
+  }
+  vizState.steps=s;
+}
+function renderLArr(arr,cur,found){
+  const c=document.getElementById('vizSearch');if(!c)return;
+  c.innerHTML=arr.map((v,i)=>{
+    let cls='';
+    if(found===i)cls='found';
+    else if(cur===i)cls='active';
+    else if(cur>-1&&i<cur)cls='eliminated';
+    return `<div class="s-box ${cls}">${v}</div>`;
+  }).join('');
+}
+function stepLSearch(){if(vizState.idx>=vizState.steps.length)return;const s=vizState.steps[vizState.idx++];renderLArr(s.arr,s.found?-1:s.i,s.found?s.i:-1);const el=document.getElementById('stepInfo');if(el)el.innerHTML=s.msg;const ct=document.getElementById('stepCounter');if(ct)ct.textContent=`Step ${vizState.idx}/${vizState.steps.length}`;}
+function startLSearch(){stopViz();const sp=()=>1050-(document.getElementById('vizSpeed')?.value||600);function go(){if(vizState.idx>=vizState.steps.length){stopViz();return;}stepLSearch();animTimer=setTimeout(go,sp());}go();}
+function resetLSearch(){stopViz();const a=ALGOS[currentAlgo];vizState.idx=0;genLSteps([...a.vizData],a.searchTarget);renderLArr([...a.vizData],-1,-1);const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';}
+
+// ── TREE VIZ ──
+function initTree(a){
+  const nodes=[{id:0,x:350,y:28},{id:1,x:200,y:88},{id:2,x:500,y:88},{id:3,x:120,y:158},{id:4,x:270,y:158},{id:5,x:430,y:158},{id:6,x:580,y:158},{id:7,x:70,y:218},{id:8,x:165,y:218}];
+  const edges=[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],[3,7],[3,8]];
+  const adj={};nodes.forEach(n=>{adj[n.id]=[];});edges.forEach(([u,v])=>{adj[u].push(v);adj[v].push(u);});
+  const steps=[];
+  if(a.vizType==='bfs'){
+    const vis=new Set(),q=[0];vis.add(0);const ord=[];
+    steps.push({vis:new Set([0]),q:[...q],cur:null,msg:'<strong>BFS Start.</strong> Enqueue node 0.'});
+    while(q.length){
+      const cur=q.shift();ord.push(cur);
+      steps.push({vis:new Set(vis),q:[...q],cur,msg:`<strong>Visit node ${cur}.</strong> Neighbors: [${adj[cur].join(', ')}]`});
+      for(const nb of adj[cur]){if(!vis.has(nb)){vis.add(nb);q.push(nb);steps.push({vis:new Set(vis),q:[...q],cur,msg:`Enqueue ${nb} → queue: [${q.join(',')}]`});}}
+    }
+    steps.push({vis:new Set(vis),q:[],cur:null,msg:`<strong>BFS Done!</strong> Order: [${ord.join(' → ')}]`});
+  } else if(a.vizType==='dfs'){
+    const vis=new Set(),ord=[];
+    function dfs(n){vis.add(n);ord.push(n);steps.push({vis:new Set(vis),cur:n,msg:`<strong>Visit node ${n}.</strong> Depth: ${ord.length}`});for(const nb of adj[n]){if(!vis.has(nb)){steps.push({vis:new Set(vis),cur:n,msg:`Explore ${n}→${nb}`});dfs(nb);}}}
+    dfs(0);steps.push({vis:new Set(vis),cur:null,msg:`<strong>DFS Done!</strong> Order: [${ord.join(' → ')}]`});
+  } else {
+    const dist={},vis=new Set();nodes.forEach(n=>{dist[n.id]=Infinity;});dist[0]=0;
+    const pq=[{id:0,d:0}];
+    steps.push({vis:new Set(),cur:null,dist:{...dist},msg:'<strong>Dijkstra.</strong> dist[0]=0, rest=∞'});
+    while(pq.length){
+      pq.sort((a,b)=>a.d-b.d);const {id:u,d}=pq.shift();if(vis.has(u))continue;vis.add(u);
+      steps.push({vis:new Set(vis),cur:u,dist:{...dist},msg:`<strong>Process node ${u}</strong> dist=${d}. Relax neighbors.`});
+      for(const v of adj[u]){if(!vis.has(v)&&dist[u]+1<dist[v]){dist[v]=dist[u]+1;pq.push({id:v,d:dist[v]});steps.push({vis:new Set(vis),cur:u,dist:{...dist},msg:`Relax ${u}→${v}: dist[${v}]=${dist[v]}`});}}
+    }
+    steps.push({vis:new Set(vis),cur:null,dist:{...dist},msg:`<strong>Done!</strong> Distances: ${Object.entries(dist).map(([k,v])=>`${k}:${v}`).join(', ')}`});
+  }
+  vizState={nodes,edges,steps,idx:0};
+  drawTree({vis:new Set(),q:[],cur:null});
+}
+function drawTree({vis,q,cur,dist}){
+  const svg=document.getElementById('treeViz');if(!svg)return;
+  const {nodes,edges}=vizState;svg.innerHTML='';
+  edges.forEach(([u,v])=>{const n1=nodes[u],n2=nodes[v];const l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',n1.x);l.setAttribute('y1',n1.y);l.setAttribute('x2',n2.x);l.setAttribute('y2',n2.y);l.setAttribute('stroke','#D9D3C7');l.setAttribute('stroke-width','1.5');svg.appendChild(l);});
+  nodes.forEach(n=>{
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',15);
+    let fill='#FFFFFF',stroke='#D9D3C7',sw=1.5;
+    if(n.id===cur){fill='rgba(84,100,20,0.15)';stroke='#546414';sw=3;}
+    else if(vis&&vis.has(n.id)){fill='rgba(22,163,74,0.12)';stroke='#16a34a';sw=2;}
+    else if(q&&q.includes(n.id)){fill='rgba(124,58,237,0.1)';stroke='#7c3aed';sw=2;}
+    c.setAttribute('fill',fill);c.setAttribute('stroke',stroke);c.setAttribute('stroke-width',sw);
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',n.x);t.setAttribute('y',n.y+1);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','central');t.setAttribute('fill','#1A1917');t.setAttribute('font-size','12');t.setAttribute('font-family','Inter');t.textContent=n.id;
+    if(dist&&dist[n.id]!==undefined){const d2=document.createElementNS('http://www.w3.org/2000/svg','text');d2.setAttribute('x',n.x+17);d2.setAttribute('y',n.y-13);d2.setAttribute('font-size','10');d2.setAttribute('fill','#546414');d2.setAttribute('font-family','Inter');d2.textContent=dist[n.id]===Infinity?'∞':dist[n.id];g.appendChild(d2);}
+    g.appendChild(c);g.appendChild(t);svg.appendChild(g);
+  });
+}
+function stepTree(){if(vizState.idx>=vizState.steps.length)return;const s=vizState.steps[vizState.idx++];drawTree(s);const el=document.getElementById('stepInfo');if(el)el.innerHTML=s.msg;const ct=document.getElementById('stepCounter');if(ct)ct.textContent=`Step ${vizState.idx}/${vizState.steps.length}`;}
+function startTree(){stopViz();const sp=()=>1050-(document.getElementById('vizSpeed')?.value||700);function go(){if(vizState.idx>=vizState.steps.length){stopViz();return;}stepTree();animTimer=setTimeout(go,sp());}go();}
+function resetTree(){stopViz();vizState.idx=0;drawTree({vis:new Set(),q:[],cur:null});const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';const ct=document.getElementById('stepCounter');if(ct)ct.textContent='Step 0';}
+
+// ── DP VIZ ──
+function initDP(a){
+  if(a.vizType==='lcs'){
+    const s1=a.dpS1,s2=a.dpS2,m=s1.length,n=s2.length;
+    const dp=Array.from({length:m+1},()=>Array(n+1).fill(0));const steps=[];
+    for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+      dp[i][j]=s1[i-1]===s2[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+      steps.push({i,j,dp:dp.map(r=>[...r]),msg:`'${s1[i-1]}' vs '${s2[j-1]}': ${s1[i-1]===s2[j-1]?`<strong style="color:var(--accent4)">Match!</strong> dp[${i}][${j}]=${dp[i][j]}`:`No match. dp[${i}][${j}]=max(${dp[i-1][j]},${dp[i][j-1]})=${dp[i][j]}`}`});
+    }
+    steps.push({i:-1,j:-1,dp:dp.map(r=>[...r]),msg:`<strong>LCS length = ${dp[m][n]}</strong>`});
+    vizState={steps,idx:0,type:'lcs'};
+  } else {
+    const W=[2,3,4,5],V=[3,4,5,6],cap=8,n=4;
+    const dp=Array.from({length:n+1},()=>Array(cap+1).fill(0));const steps=[];
+    for(let i=1;i<=n;i++)for(let c=0;c<=cap;c++){
+      dp[i][c]=W[i-1]>c?dp[i-1][c]:Math.max(dp[i-1][c],dp[i-1][c-W[i-1]]+V[i-1]);
+      steps.push({i,c,dp:dp.map(r=>[...r]),msg:`Item ${i}(w=${W[i-1]},v=${V[i-1]}) cap=${c}: ${W[i-1]>c?`Can't fit=${dp[i][c]}`:`max(skip=${dp[i-1][c]},take=${dp[i-1][c-W[i-1]]+V[i-1]})=<strong style="color:var(--accent)">${dp[i][c]}</strong>`}`});
+    }
+    steps.push({done:true,dp:dp.map(r=>[...r]),msg:`<strong>Max value = ${dp[n][cap]}</strong> with capacity 8.`});
+    vizState={steps,idx:0,type:'knapsack'};
+  }
+}
+function stepDP(){
+  if(vizState.idx>=vizState.steps.length)return;
+  const s=vizState.steps[vizState.idx++];
+  if(vizState.type==='lcs'){s.dp.forEach((row,i)=>row.forEach((val,j)=>{const el=document.getElementById(`dp_${i}_${j}`);if(!el)return;el.className='';el.textContent=val;if(i===s.i&&j===s.j)el.className='current';else if(val>0)el.className='filled';}));}
+  else{s.dp.forEach((row,i)=>row.forEach((val,c)=>{const el=document.getElementById(`ks_${i}_${c}`);if(!el)return;el.className='';el.textContent=val;if(i===s.i&&c===s.c)el.className='current';else if(val>0)el.className='filled';}));}
+  const el=document.getElementById('stepInfo');if(el)el.innerHTML=s.msg;
+}
+function startDP(){stopViz();const sp=()=>1050-(document.getElementById('vizSpeed')?.value||400);function go(){if(vizState.idx>=vizState.steps.length){stopViz();return;}stepDP();animTimer=setTimeout(go,sp());}go();}
+function resetDP(){stopViz();const a=ALGOS[currentAlgo];vizState.idx=0;initDP(a);if(a.vizType==='lcs'){document.querySelectorAll('[id^="dp_"]').forEach(el=>{el.className='';el.textContent='0';});}else{document.querySelectorAll('[id^="ks_"]').forEach(el=>{el.className='';el.textContent='0';});}const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';}
+
+// ── LINKED LIST VIZ ──
+function initLL(){vizState={nodes:[5,12,3,8,17,1,9],idx:0};renderLL(-1,[]);}
+function renderLL(cur,vis){
+  const c=document.getElementById('llViz');if(!c)return;
+  c.innerHTML=vizState.nodes.map((v,i)=>`
+    <div style="display:flex;align-items:center">
+      <div class="ll-box ${i===cur?'current':vis.includes(i)?'visited':''}">${v}</div>
+      ${i<vizState.nodes.length-1?'<span class="ll-arrow">→</span>':'<span class="ll-arrow">→</span><div class="ll-null">null</div>'}
+    </div>`).join('');
+}
+function startLL(){
+  stopViz();vizState.idx=0;const vis=[];
+  const sp=()=>1050-(document.getElementById('vizSpeed')?.value||600);
+  function go(){
+    if(vizState.idx>=vizState.nodes.length){renderLL(-1,[...Array(vizState.nodes.length).keys()]);const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Traversal complete!</strong>';return;}
+    vis.push(vizState.idx);renderLL(vizState.idx,vis.slice(0,-1));
+    const el=document.getElementById('stepInfo');if(el)el.innerHTML=`Visit node[${vizState.idx}] = ${vizState.nodes[vizState.idx]}`;
+    vizState.idx++;animTimer=setTimeout(go,sp());
+  }go();
+}
+function stepLL(){if(vizState.idx>=vizState.nodes.length)return;const vis=[...Array(vizState.idx).keys()];renderLL(vizState.idx,vis);const el=document.getElementById('stepInfo');if(el)el.innerHTML=`Visit node[${vizState.idx}] = ${vizState.nodes[vizState.idx]}`;vizState.idx++;}
+function resetLL(){stopViz();vizState.nodes=[5,12,3,8,17,1,9];vizState.idx=0;renderLL(-1,[]);const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Ready.</strong>';}
+function reverseLL(){stopViz();vizState.nodes=[...vizState.nodes].reverse();vizState.idx=0;renderLL(-1,[]);const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Reversed in-place!</strong> O(n) time, O(1) space.';}
+
+// ── HASH TABLE VIZ ──
+function initHash(){vizState={buckets:Array(8).fill(null).map(()=>[])};renderHash();}
+function hashFn(k){let h=0;for(const c of String(k))h=(h+c.charCodeAt(0))%8;return h;}
+function renderHash(){
+  const c=document.getElementById('hashViz');if(!c)return;
+  c.innerHTML=vizState.buckets.map((b,i)=>`
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:9px;min-height:52px">
+      <div style="font-size:9px;color:var(--muted);margin-bottom:4px">Bucket ${i}</div>
+      ${b.length===0?`<span style="font-size:10px;color:var(--border)">empty</span>`:
+        b.map(([k,v])=>`<div style="font-size:11px;padding:2px 6px;background:rgba(84,100,20,0.08);border-radius:3px;margin-bottom:2px;border:1px solid rgba(84,100,20,0.15)">${k}: <span style="color:var(--accent)">${v}</span></div>`).join('')}
+    </div>`).join('');
+}
+function hashInsert(){
+  const k=document.getElementById('hashKey')?.value?.trim(),v=document.getElementById('hashVal')?.value?.trim();if(!k)return;
+  const idx=hashFn(k);const ex=vizState.buckets[idx].findIndex(([ek])=>ek===k);
+  if(ex>-1)vizState.buckets[idx][ex]=[k,v||''];else vizState.buckets[idx].push([k,v||'']);
+  renderHash();const el=document.getElementById('stepInfo');if(el)el.innerHTML=`<strong>Insert</strong> "${k}" → hash=${idx} → Bucket ${idx} ${ex>-1?'(updated)':'(added)'}`;
+  document.getElementById('hashKey').value='';document.getElementById('hashVal').value='';
+}
+function hashSearch(){
+  const k=document.getElementById('hashKey')?.value?.trim();if(!k)return;
+  const idx=hashFn(k);const found=vizState.buckets[idx].find(([ek])=>ek===k);
+  const el=document.getElementById('stepInfo');
+  if(found)el.innerHTML=`<strong style="color:var(--accent4)">Found!</strong> "${k}" → hash=${idx} → value: <strong>${found[1]}</strong>`;
+  else el.innerHTML=`<strong style="color:var(--accent2)">Not found.</strong> "${k}" → hash=${idx} → Bucket ${idx} empty/no match.`;
+}
+function hashReset(){vizState.buckets=Array(8).fill(null).map(()=>[]);renderHash();const el=document.getElementById('stepInfo');if(el)el.innerHTML='<strong>Cleared.</strong>';}
+
+// ── COMPLEXITY HTML ──
+function buildComplexityHTML(a){
+  const rows=[{name:'O(1)',color:'#16a34a',w:2},{name:'O(log n)',color:'#546414',w:10},{name:'O(n)',color:'#7c3aed',w:35},{name:'O(n log n)',color:'#d97706',w:55},{name:'O(n²)',color:'#ea580c',w:75},{name:'O(2ⁿ)',color:'#dc2626',w:95}];
+  const bars=rows.map(r=>`<div class="o-bar-row"><span class="o-name">${r.name}</span><div class="o-track"><div class="o-fill" style="width:${r.w}%;background:${r.color}">${r.w>15?r.name:''}</div></div></div>`).join('');
+  const tc=v=>v.includes('n²')||v.includes('2ⁿ')?'c-red':v.includes('log')||v.includes('mn')||v.includes('nW')?'c-yellow':v.includes('n)')?'c-purple':'c-green';
+  const sc=v=>v.includes('n)')?'c-yellow':v.includes('log')?'c-blue':'c-green';
+  return `
+  <div class="complexity-grid">
+    <div class="complexity-card"><h4>⏱ Time Complexity</h4>
+      <div class="complexity-row"><span class="complexity-label">Best case</span><span class="complexity-value ${tc(a.time_best)}">${a.time_best}</span></div>
+      <div class="complexity-row"><span class="complexity-label">Average case</span><span class="complexity-value ${tc(a.time_avg)}">${a.time_avg}</span></div>
+      <div class="complexity-row"><span class="complexity-label">Worst case</span><span class="complexity-value ${tc(a.time_worst)}">${a.time_worst}</span></div>
+    </div>
+    <div class="complexity-card"><h4>💾 Space &amp; Properties</h4>
+      <div class="complexity-row"><span class="complexity-label">Auxiliary space</span><span class="complexity-value ${sc(a.space)}">${a.space}</span></div>
+      <div class="complexity-row"><span class="complexity-label">Stable</span><span class="complexity-value ${a.stable?'c-green':'c-yellow'}">${a.stable?'Yes':'No'}</span></div>
+    </div>
+  </div>
+  <div class="big-o-chart"><h4>Big-O Growth Reference</h4>${bars}</div>
+  <div style="background:var(--surface2);border-radius:8px;padding:14px;font-size:12px;line-height:2;color:var(--muted)">
+    <span style="color:var(--accent4)">O(1)</span> — hash lookup, array index &nbsp;·&nbsp;
+    <span style="color:var(--accent)">O(log n)</span> — binary search, BST &nbsp;·&nbsp;
+    <span style="color:var(--accent3)">O(n)</span> — linear scan &nbsp;·&nbsp;
+    <span style="color:#d97706">O(n log n)</span> — efficient sorting &nbsp;·&nbsp;
+    <span style="color:#ea580c">O(n²)</span> — nested loops &nbsp;·&nbsp;
+    <span style="color:var(--accent2)">O(2ⁿ)</span> — recursive subsets
+  </div>`;
+}
+
+// ── USE CASES HTML ──
+function buildUsecasesHTML(a){
+  return `
+  <div class="use-case-grid">${a.usecases.map(u=>`<div class="use-case-card"><h5><span>${u.icon}</span>${u.title}</h5><p>${u.desc}</p></div>`).join('')}</div>
+  <div class="when-to-use"><h4>✓ When to use ${a.title}</h4><ul>${a.when.map(w=>`<li>${w}</li>`).join('')}</ul></div>
+  <div class="avoid"><h4>✕ When to avoid</h4><ul>${a.avoid.map(v=>`<li>${v}</li>`).join('')}</ul></div>`;
+}
+
+// ── CODE HTML ──
+function buildCodeHTML(a){
+  return `
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">Python 3</span>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <pre>${a.code}</pre>
+  </div>`;
+}
+function copyCode(btn){
+  const text=btn.closest('.code-block').querySelector('pre').innerText||'';
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';btn.style.color='var(--accent4)';setTimeout(()=>{btn.textContent='Copy';btn.style.color='';},1500);});
+}
+
+// ── BOOT ──
+render('quicksort');
+</script>
+</body>
+</html>

@@ -182,7 +182,7 @@ description: "Master LangChain and LCEL — build composable chains, connect LLM
   <h1>Unit 3 — Chain Composition with LangChain</h1>
   <p class="mod-hero-sub">Time to write real code. LangChain is the most popular orchestration framework for building LLM-powered applications. In this unit you'll go from zero to building composable chains, connecting tools, parsing structured outputs, and creating your first autonomous agent — all with the LangChain Expression Language (LCEL).</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track B · Orchestration Toolkits</span>
+    <span class="mod-pill track">Module B · Orchestration Toolkits</span>
     <span class="mod-pill time">⏱ ~9 hrs across 5 days (Week 4)</span>
     <span class="mod-pill hands">🛠 1 hands-on project</span>
   </div>

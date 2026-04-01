@@ -23,7 +23,7 @@ description: "Design multi-agent crews with CrewAI — define agents with roles 
   <h1>Unit 7 — Coordinated Agent Teams with CrewAI</h1>
   <p class="mod-hero-sub">CrewAI models multi-agent collaboration the way real teams work: each agent has a <strong>role</strong>, a <strong>goal</strong>, and a <strong>backstory</strong>. Agents collaborate through sequential or hierarchical task processes, share context, delegate subtasks, and produce structured outputs. This unit teaches you to design, wire, and run production crews.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track C · Collaborative & Specialized Agents</span>
+    <span class="mod-pill track">Module C · Collaborative & Specialized Agents</span>
     <span class="mod-pill time">⏱ ~10 hrs across 5 days (Week 9)</span>
     <span class="mod-pill hands">🛠 2 hands-on projects</span>
   </div>

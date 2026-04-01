@@ -23,7 +23,7 @@ description: "Capstone project — deploy production AI agents on AWS Bedrock, A
   <h1>Unit 11 ★ Capstone — Deploying Autonomous AI on Major Clouds</h1>
   <p class="mod-hero-sub">This is the finish line. You've built agents with LangChain, LangGraph, Phidata, CrewAI, and AutoGen. You've traced, evaluated, and prototyped with visual tools. Now you'll take an agent from your laptop to the three major cloud platforms — <strong>AWS Bedrock</strong>, <strong>Azure OpenAI</strong>, and <strong>GCP Vertex AI</strong> — and learn when to use each.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track D · Production & Deployment</span>
+    <span class="mod-pill track">Module D · Production & Deployment</span>
     <span class="mod-pill time">⏱ ~10 hrs across 5 days (Week 12)</span>
     <span class="mod-pill hands">🛠 1 capstone project with 3 deployments</span>
   </div>

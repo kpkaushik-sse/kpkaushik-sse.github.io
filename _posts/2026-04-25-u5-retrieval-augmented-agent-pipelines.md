@@ -23,7 +23,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
   <h1>Unit 5 — Retrieval-Augmented Agent Pipelines</h1>
   <p class="mod-hero-sub">LLMs know what they were trained on — nothing more. When your agent needs to answer questions about your company's docs, recent data, or private knowledge, it needs to retrieve information first. RAG (Retrieval-Augmented Generation) is how you give agents access to your data without retraining the model.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track B · Orchestration Toolkits</span>
+    <span class="mod-pill track">Module B · Orchestration Toolkits</span>
     <span class="mod-pill time">⏱ ~10 hrs across 5 days (Week 7)</span>
     <span class="mod-pill hands">🛠 2 hands-on projects</span>
   </div>
@@ -155,6 +155,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>That manual paste is exactly what RAG automates. Draw the 6-step pipeline on paper and label each step.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -207,6 +208,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Try <code>MarkdownTextSplitter</code> on a markdown file. Compare the chunk boundaries with the recursive splitter — which preserves section structure better?</li>
       </ol>
     </div>
+
   </div>
 </div>
 </div><!-- /day1 -->
@@ -268,6 +270,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Compare OpenAI embeddings (1536-dim) with HuggingFace all-MiniLM (384-dim). Is the quality difference noticeable for your test sentences?</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -337,6 +340,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Save the FAISS index to disk, restart Python, reload the index, and verify search still works.</li>
       </ol>
     </div>
+
   </div>
 </div>
 </div><!-- /day2 -->
@@ -410,6 +414,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Adjust the weights (0.7 vector / 0.3 BM25) and observe how result ordering changes.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -461,6 +466,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Try different <code>top_n</code> values (3, 5, 10). At what point does adding more chunks stop improving answer quality?</li>
       </ol>
     </div>
+
   </div>
 </div>
 </div><!-- /day3 -->
@@ -533,6 +539,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Enable citation mode and verify that the response includes references to specific source documents.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -605,6 +612,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Wire both into a LangGraph with the self-correcting pattern shown above. Test with a question that your documents can answer and one they can't.</li>
       </ol>
     </div>
+
   </div>
 </div>
 </div><!-- /day4 -->
@@ -656,6 +664,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Test with a question your documents DON'T answer. Verify the agent says "I don't have enough information" instead of hallucinating.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -679,6 +688,7 @@ description: "Build production RAG systems — vector stores, embedding strategi
         <li>Add a fallback: if no source has a confident answer, combine results from all three sources.</li>
       </ol>
     </div>
+
   </div>
 </div>
 </div><!-- /day5 -->

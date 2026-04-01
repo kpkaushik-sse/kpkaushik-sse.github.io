@@ -23,7 +23,7 @@ description: "Instrument your agents with observability — trace every LLM call
   <h1>Unit 9 — Tracing, Evaluation & Agent Telemetry</h1>
   <p class="mod-hero-sub">You can build agents. Now you need to <strong>see inside them</strong>. When an agent gives a wrong answer, which step failed? When costs spike, which tool call is expensive? When latency doubles, where's the bottleneck? This unit teaches you to instrument, monitor, and evaluate your agents in production using Langfuse and LangSmith.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track D · Production & Deployment</span>
+    <span class="mod-pill track">Module D · Production & Deployment</span>
     <span class="mod-pill time">⏱ ~8 hrs across 5 days (Week 11)</span>
     <span class="mod-pill hands">🛠 2 hands-on labs</span>
   </div>

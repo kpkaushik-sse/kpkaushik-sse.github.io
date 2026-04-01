@@ -23,7 +23,7 @@ description: "Build AI agents without writing code — explore Wordware for prom
   <h1>Unit 10 — Visual & Low-Code Agent Builders</h1>
   <p class="mod-hero-sub">Not every agent needs 500 lines of Python. Visual builders let product managers, analysts, and rapid-prototypers create agents by connecting blocks on a canvas. This unit covers three platforms: <strong>Wordware</strong> for structured prompt engineering, <strong>Relevance AI</strong> for business automation, and <strong>Langflow</strong> for visual LangChain development.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track D · Production & Deployment</span>
+    <span class="mod-pill track">Module D · Production & Deployment</span>
     <span class="mod-pill time">⏱ ~8 hrs across 5 days (Week 11)</span>
     <span class="mod-pill hands">🛠 3 hands-on labs</span>
   </div>

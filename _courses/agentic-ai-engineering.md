@@ -51,6 +51,26 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
   .tag.tool    { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
   .tag.lab     { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
   .tag.concept { background: #EEEDFE; color: #3C3489; border-color: #CECBF6; }
+
+  .unit-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 0.5px solid #93ad37;
+    background: #546414;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .unit-cta:hover {
+    background: #455310;
+    transform: translateY(-1px);
+  }
   @media (prefers-color-scheme: dark) {
     .tag.tool    { background: #0C447C; color: #B5D4F4; border-color: #185FA5; }
     .tag.lab     { background: #27500A; color: #C0DD97; border-color: #3B6D11; }
@@ -81,10 +101,10 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
     <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-val">12 wks</div></div>
   </div>
 
-  <!-- TRACK A -->
+  <!-- MODULE A -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p1')">
-      <span class="phase-badge" style="background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6;">Track A</span>
+      <span class="phase-badge" style="background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6;">Module A</span>
       <span class="phase-title">Groundwork &amp; Principles</span>
       <span class="phase-meta">Weeks 1–3</span>
       <span class="chevron" id="p1-chev">▶</span>
@@ -117,6 +137,7 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
             <span class="tag concept">Cooperative agents</span>
             <span class="tag lab">Draft a system blueprint</span>
           </div>
+          <a class="unit-cta" href="/blog/2026/03/28/u2-agentic-ai-architecture-design-patterns/">Start Unit 2 →</a>
         </div>
       </div>
 
@@ -125,10 +146,10 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
 
   </div>
 
-  <!-- TRACK B -->
+  <!-- MODULE B -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p2')">
-      <span class="phase-badge" style="background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4;">Track B</span>
+      <span class="phase-badge" style="background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4;">Module B</span>
       <span class="phase-title">Orchestration Toolkits</span>
       <span class="phase-meta">Weeks 4–7</span>
       <span class="chevron" id="p2-chev">▶</span>
@@ -184,10 +205,10 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
 
   </div>
 
-  <!-- TRACK C -->
+  <!-- MODULE C -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p3')">
-      <span class="phase-badge" style="background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB;">Track C</span>
+      <span class="phase-badge" style="background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB;">Module C</span>
       <span class="phase-title">Collaborative &amp; Specialized Agents</span>
       <span class="phase-meta">Weeks 8–10</span>
       <span class="chevron" id="p3-chev">▶</span>
@@ -243,10 +264,10 @@ description: "A hands-on 12-week learning track for building autonomous AI agent
 
   </div>
 
-  <!-- TRACK D -->
+  <!-- MODULE D -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p4')">
-      <span class="phase-badge" style="background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;">Track D</span>
+      <span class="phase-badge" style="background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;">Module D</span>
       <span class="phase-title">Production, Monitoring &amp; Deployment</span>
       <span class="phase-meta">Weeks 11–12</span>
       <span class="chevron" id="p4-chev">▶</span>

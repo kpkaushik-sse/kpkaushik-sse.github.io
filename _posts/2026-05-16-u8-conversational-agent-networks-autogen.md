@@ -23,7 +23,7 @@ description: "Build multi-agent conversational systems with Microsoft AutoGen �
   <h1>Unit 8 — Conversational Agent Networks with AutoGen</h1>
   <p class="mod-hero-sub">Microsoft's AutoGen takes a fundamentally different approach to multi-agent systems: instead of task pipelines or manager delegation, agents communicate through <strong>conversations</strong>. Think of it as a group chat where each participant is an AI agent (or a human) with its own expertise. This unit teaches you to design, orchestrate, and control these conversational networks.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track C · Collaborative & Specialized Agents</span>
+    <span class="mod-pill track">Module C · Collaborative & Specialized Agents</span>
     <span class="mod-pill time">⏱ ~9 hrs across 5 days (Week 10)</span>
     <span class="mod-pill hands">🛠 1 hands-on project</span>
   </div>

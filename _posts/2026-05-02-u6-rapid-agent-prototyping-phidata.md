@@ -23,7 +23,7 @@ description: "Build production-ready AI agents in minutes with Phidata — struc
   <h1>Unit 6 — Rapid Agent Prototyping with Phidata</h1>
   <p class="mod-hero-sub">LangChain and LangGraph give you full control — but that control comes with boilerplate. Phidata takes the opposite approach: opinionated defaults, batteries-included tools, and production features out of the box. In this unit you'll go from zero to a deployed agent in under 50 lines of code.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track C · Collaborative & Specialized Agents</span>
+    <span class="mod-pill track">Module C · Collaborative & Specialized Agents</span>
     <span class="mod-pill time">⏱ ~8 hrs across 5 days (Week 8)</span>
     <span class="mod-pill hands">🛠 1 hands-on project</span>
   </div>

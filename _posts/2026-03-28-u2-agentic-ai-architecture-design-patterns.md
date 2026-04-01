@@ -182,7 +182,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
   <h1>Unit 2 — Agent Blueprints & Reasoning Strategies</h1>
   <p class="mod-hero-sub">How are autonomous AI systems actually wired? This unit opens up the black box — you'll learn the architecture types, the six core modules inside every agent framework, and the five design patterns that dictate <em>how</em> an agent thinks and acts.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track A · Groundwork</span>
+    <span class="mod-pill track">Module A · Groundwork</span>
     <span class="mod-pill time">⏱ ~10 hrs across 5 days (weeks 2–3)</span>
     <span class="mod-pill hands">🛠 2 hands-on labs</span>
   </div>
@@ -316,6 +316,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li>Draw the high-level diagram above by hand — label each module</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -458,6 +459,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li>Which architecture fits a "weekly expense report generator" that waits for receipts to arrive over email?</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -517,6 +519,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Key insight:</strong> The quality of perception directly determines the quality of everything downstream. If the Perception Module misunderstands the goal, even the best planner and the best tools will produce the wrong result. Garbage in, garbage out — at agent scale.
     </div>
+
   </div>
 </div>
 
@@ -578,6 +581,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Common mistake:</strong> Treating the LLM as the entire agent. The LLM is just the reasoning engine inside the Cognitive Module. The module also includes the prompt engineering, the routing logic, the retry strategy, and the decision of when to stop.
     </div>
+
   </div>
 </div>
 
@@ -673,6 +677,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li>What would happen if the validation layer didn't exist? List 3 things that could go wrong.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -745,6 +750,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Key insight:</strong> Memory is what separates a demo agent from a production agent. A demo agent works once. A production agent works better the hundredth time because it remembers what succeeded and what failed.
     </div>
+
   </div>
 </div>
 
@@ -797,6 +803,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Production advice:</strong> The orchestrator model covers 90% of real-world multi-agent use cases. Don't jump to peer-to-peer or hierarchical unless you genuinely have autonomous agents that need to negotiate. Start simple.
     </div>
+
   </div>
 </div>
 
@@ -889,6 +896,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li>What action budget would you set? (max tool calls, max tokens, max spend)</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -966,6 +974,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Real example:</strong> A code-writing agent generates a function → runs it against test cases → sees 2 failing tests → analyses the failures → rewrites the function → all tests pass → ships the code. This is Reflection in action.
     </div>
+
   </div>
 </div>
 
@@ -998,6 +1007,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Production tip:</strong> Write tool descriptions as if they're API docs for a junior developer. The LLM decides which tool to call based almost entirely on the description. Vague descriptions → wrong tool selections → failed tasks. Be specific about what the tool does, what it needs, and what it returns.
     </div>
+
   </div>
 </div>
 
@@ -1040,6 +1050,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>When planning hurts:</strong> If the task is simple enough to solve in 1–2 tool calls, planning adds unnecessary latency and cost. Use planning only when the goal genuinely requires 3+ steps with dependencies between them.
     </div>
+
   </div>
 </div>
 
@@ -1105,6 +1116,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Practical guidance:</strong> Use <strong>ReAct</strong> when the task involves uncertainty, external APIs that might fail, or user-dependent decisions. Use <strong>ReWOO</strong> when the task is predictable, cost matters, and you want parallelisable execution. Many production systems use a <strong>hybrid</strong>: plan with ReWOO, but switch to ReAct-style re-planning when a step fails.
     </div>
+
   </div>
 </div>
 
@@ -1165,6 +1177,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li>Think of a task where you'd combine Reflection + Multi-Agent. Describe the agent roles.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -1240,6 +1253,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>The golden rule of agent architecture:</strong> Build the simplest system that solves the problem reliably. Every added component (extra agent, extra pattern, extra tool) is both capability and liability. Measure twice, architect once.
     </div>
+
   </div>
 </div>
 
@@ -1286,6 +1300,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
         <li><strong>Agent walkthrough:</strong> Step through a sample user request from start to finish — show the agent loop running.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -1340,6 +1355,7 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
     <div class="insight-box">
       <strong>Why on paper?</strong> Coding comes in the next units (LangChain, LangGraph, CrewAI). Right now, the goal is to internalise the patterns so deeply that when you start coding, you already know <em>what</em> to build — you just need to learn the framework's syntax. This saves weeks of trial-and-error.
     </div>
+
   </div>
 </div>
 
@@ -1387,6 +1403,9 @@ description: "Deep dive into agentic AI architecture types, the six framework mo
   </a>
   <a href="/courses/agentic-ai-engineering/" style="display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px; background: var(--gum); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">
     Course Overview
+  </a>
+  <a href="/blog/2026/04/11/u3-chain-composition-langchain/" style="display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px; background: var(--gray-200); color: var(--gray-700); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">
+    Unit 3 &rarr;
   </a>
 </div>
 

@@ -113,7 +113,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
   <h1>Unit 4 — Stateful Agent Workflows with LangGraph</h1>
   <p class="mod-hero-sub">LangChain chains are linear — data flows in one direction. But real agents loop, branch, retry, and wait for human approval. LangGraph adds the missing piece: a graph-based state machine for building cyclic, stateful, production-grade agent workflows. In this unit you go from chains to graphs.</p>
   <div class="mod-hero-meta">
-    <span class="mod-pill track">Track B · Orchestration Toolkits</span>
+    <span class="mod-pill track">Module B · Orchestration Toolkits</span>
     <span class="mod-pill time">⏱ ~12 hrs across 5 days (Weeks 5–6)</span>
     <span class="mod-pill hands">🛠 1 hands-on project</span>
   </div>
@@ -215,6 +215,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Write down 3 real-world agent scenarios where LCEL chains would fail. For each, explain which of the five limitations applies.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -309,6 +310,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Use <code>get_graph().draw_mermaid()</code> to visualise your three-node graph.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -409,6 +411,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Visualise the graph with <code>draw_mermaid()</code> and verify it matches the diagram above.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -513,6 +516,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Add a print statement inside the <code>agent</code> node that logs the iteration number. Verify the loop count matches your expectation.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -604,6 +608,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Create a custom reducer that keeps a running average of confidence scores across iterations.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -673,6 +678,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Switch to <code>SqliteSaver</code>. Run a conversation, kill the Python process, restart it, and verify the agent can resume the thread.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -781,6 +787,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Implement the "edit & resume" pattern: pause after the agent drafts a response, let the human modify the draft, then send the edited version.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -841,6 +848,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Combine streaming with HITL: stream progress, pause at the tool execution node, wait for input, then resume streaming.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
@@ -946,6 +954,7 @@ description: "Build production-grade agent workflows with LangGraph — master s
         <li>Add a <code>recursion_limit</code> and test what happens when the info-gathering loop cycles too many times.</li>
       </ol>
     </div>
+
   </div>
 </div>
 
