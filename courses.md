@@ -10,13 +10,13 @@ Structured paths from zero to project-ready. Each track is a sequence of focused
 
 ---
 
-## Agentic AI Engineering
+## Autonomous AI Systems — Practical Engineering Track
 
-**Level:** Advanced &bull; **Modules:** 11 &bull; **Duration:** ~12 weeks
+**Level:** Advanced &bull; **Units:** 11 &bull; **Duration:** ~12 weeks
 
-A comprehensive self-paced plan covering Agentic AI from first principles to cloud deployment. Build real agents with LangChain, LangGraph, LlamaIndex, CrewAI, Autogen, and more — with 20+ hands-on labs.
+A hands-on learning track for building autonomous AI agents — from orchestration frameworks and retrieval pipelines to multi-agent coordination and production deployment. Includes 20+ practice projects using LangChain, LangGraph, LlamaIndex, CrewAI, Autogen, and more.
 
-[View full course plan &rarr;](/courses/agentic-ai-engineering/)
+[View full track &rarr;](/courses/agentic-ai-engineering/)
 
 ---
 

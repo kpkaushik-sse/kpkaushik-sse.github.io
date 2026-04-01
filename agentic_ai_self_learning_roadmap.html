@@ -1,0 +1,271 @@
+
+<style>
+  :root { --gap: 12px; }
+  .phase { border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); margin-bottom: 10px; overflow: hidden; }
+  .phase-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; user-select: none; }
+  .phase-header:hover { background: var(--color-background-secondary); }
+  .phase-badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .phase-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+  .phase-meta { font-size: 12px; color: var(--color-text-secondary); white-space: nowrap; }
+  .chevron { font-size: 11px; color: var(--color-text-tertiary); transition: transform 0.2s; }
+  .phase-body { display: none; padding: 0 16px 14px; border-top: 0.5px solid var(--color-border-tertiary); }
+  .phase-body.open { display: block; }
+  .mod-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .mod-row:last-child { border-bottom: none; }
+  .mod-num { font-size: 11px; font-weight: 500; min-width: 22px; color: var(--color-text-tertiary); padding-top: 2px; }
+  .mod-content { flex: 1; }
+  .mod-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .mod-duration { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+  .mod-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .tag { font-size: 10px; padding: 2px 7px; border-radius: 20px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+  .tag.tool { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
+  .tag.lab { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
+  .tag.concept { background: #EEEDFE; color: #3C3489; border-color: #CECBF6; }
+  @media (prefers-color-scheme: dark) {
+    .tag.tool { background: #0C447C; color: #B5D4F4; border-color: #185FA5; }
+    .tag.lab { background: #27500A; color: #C0DD97; border-color: #3B6D11; }
+    .tag.concept { background: #3C3489; color: #CECBF6; border-color: #534AB7; }
+  }
+  .tip-box { background: var(--color-background-secondary); border-left: 3px solid #7F77DD; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 8px 12px; margin-top: 8px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .ask-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12px; padding: 5px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+  .ask-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .progress-bar { height: 4px; border-radius: 2px; background: var(--color-border-tertiary); margin: 4px 0 10px; }
+  .progress-fill { height: 4px; border-radius: 2px; }
+  .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); }
+  .stat-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-top: 2px; }
+  .week-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin: 10px 0 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+</style>
+
+<div style="padding: 4px 0 8px;">
+  <div style="font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px;">Agentic AI — Self-paced plan</div>
+  <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 14px;">11 modules · ~12 weeks · study 8–10 hrs/week</div>
+
+  <div class="overview-grid">
+    <div class="stat-card"><div class="stat-label">Total modules</div><div class="stat-val">11</div></div>
+    <div class="stat-card"><div class="stat-label">Hands-on labs</div><div class="stat-val">20+</div></div>
+    <div class="stat-card"><div class="stat-label">Est. duration</div><div class="stat-val">12 wks</div></div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle('p1')">
+      <span class="phase-badge" style="background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6;">Phase 1</span>
+      <span class="phase-title">Foundations</span>
+      <span class="phase-meta">Weeks 1–3</span>
+      <span class="chevron" id="p1-chev">▶</span>
+    </div>
+    <div class="phase-body" id="p1">
+      <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#7F77DD;"></div></div>
+      <div class="week-label">Week 1</div>
+      <div class="mod-row">
+        <div class="mod-num">M1</div>
+        <div class="mod-content">
+          <div class="mod-title">Agentic AI Essentials</div>
+          <div class="mod-duration">~8 hrs · 2 labs</div>
+          <div class="mod-tags">
+            <span class="tag concept">Concepts</span>
+            <span class="tag concept">Ethics</span>
+            <span class="tag lab">Analyze use cases</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Weeks 2–3</div>
+      <div class="mod-row">
+        <div class="mod-num">M2</div>
+        <div class="mod-content">
+          <div class="mod-title">Architectures & Design Patterns</div>
+          <div class="mod-duration">~10 hrs · 2 labs</div>
+          <div class="mod-tags">
+            <span class="tag concept">ReAct / ReWOO</span>
+            <span class="tag concept">Multi-agent</span>
+            <span class="tag lab">Design an architecture</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">Start a notes doc. Sketch each design pattern (Reflection, Tool Use, Planning, ReAct) by hand — it cements them far better than just reading.</div>
+      <button class="ask-btn" onclick="sendPrompt('Explain the ReAct design pattern in Agentic AI with a simple example')">Ask me about ReAct ↗</button>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle('p2')">
+      <span class="phase-badge" style="background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4;">Phase 2</span>
+      <span class="phase-title">Core Frameworks</span>
+      <span class="phase-meta">Weeks 4–7</span>
+      <span class="chevron" id="p2-chev">▶</span>
+    </div>
+    <div class="phase-body" id="p2">
+      <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#378ADD;"></div></div>
+      <div class="week-label">Week 4</div>
+      <div class="mod-row">
+        <div class="mod-num">M3</div>
+        <div class="mod-content">
+          <div class="mod-title">LangChain & LCEL</div>
+          <div class="mod-duration">~9 hrs · 1 project</div>
+          <div class="mod-tags">
+            <span class="tag tool">LangChain</span>
+            <span class="tag tool">LCEL</span>
+            <span class="tag lab">Build self-correcting coding assistant</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Weeks 5–6</div>
+      <div class="mod-row">
+        <div class="mod-num">M4</div>
+        <div class="mod-content">
+          <div class="mod-title">Building AI Agents with LangGraph</div>
+          <div class="mod-duration">~12 hrs · 1 project</div>
+          <div class="mod-tags">
+            <span class="tag tool">LangGraph</span>
+            <span class="tag concept">State & Memory</span>
+            <span class="tag lab">Finance bot</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Week 7</div>
+      <div class="mod-row">
+        <div class="mod-num">M5</div>
+        <div class="mod-content">
+          <div class="mod-title">Implementing Agentic RAG</div>
+          <div class="mod-duration">~10 hrs · 2 projects</div>
+          <div class="mod-tags">
+            <span class="tag tool">LlamaIndex</span>
+            <span class="tag tool">Cohere</span>
+            <span class="tag lab">Sales report analyzer</span>
+            <span class="tag lab">Market research agent</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">This is the densest phase. Don't rush M4 — LangGraph's state/memory model is the backbone of everything that follows. Spend extra time on the Finance Bot project.</div>
+      <button class="ask-btn" onclick="sendPrompt('Explain LangGraph state management with a simple diagram or example')">Explain LangGraph state ↗</button>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle('p3')">
+      <span class="phase-badge" style="background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB;">Phase 3</span>
+      <span class="phase-title">Advanced Agents</span>
+      <span class="phase-meta">Weeks 8–10</span>
+      <span class="chevron" id="p3-chev">▶</span>
+    </div>
+    <div class="phase-body" id="p3">
+      <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#1D9E75;"></div></div>
+      <div class="week-label">Week 8</div>
+      <div class="mod-row">
+        <div class="mod-num">M6</div>
+        <div class="mod-content">
+          <div class="mod-title">AI Agents with Phidata</div>
+          <div class="mod-duration">~8 hrs · 1 project</div>
+          <div class="mod-tags">
+            <span class="tag tool">Phidata</span>
+            <span class="tag tool">Vector DB</span>
+            <span class="tag lab">Data analysis agent</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Week 9</div>
+      <div class="mod-row">
+        <div class="mod-num">M7</div>
+        <div class="mod-content">
+          <div class="mod-title">Multi-Agent Systems — LangGraph + CrewAI</div>
+          <div class="mod-duration">~10 hrs · 2 projects</div>
+          <div class="mod-tags">
+            <span class="tag tool">CrewAI</span>
+            <span class="tag concept">Multi-agent design</span>
+            <span class="tag lab">Customer support chatbot</span>
+            <span class="tag lab">Stock analysis agent</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Week 10</div>
+      <div class="mod-row">
+        <div class="mod-num">M8</div>
+        <div class="mod-content">
+          <div class="mod-title">Advanced Agent Dev with Autogen</div>
+          <div class="mod-duration">~9 hrs · 1 project</div>
+          <div class="mod-tags">
+            <span class="tag tool">Autogen</span>
+            <span class="tag concept">Conversation patterns</span>
+            <span class="tag lab">AI research agent</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">Compare CrewAI vs LangGraph multi-agent vs Autogen side-by-side. Each has a different philosophy — a written comparison will be your best study artifact.</div>
+      <button class="ask-btn" onclick="sendPrompt('Compare CrewAI, LangGraph multi-agent, and Autogen — when should I use each?')">Compare frameworks ↗</button>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle('p4')">
+      <span class="phase-badge" style="background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;">Phase 4</span>
+      <span class="phase-title">Ops, No-Code & Cloud</span>
+      <span class="phase-meta">Weeks 11–12</span>
+      <span class="chevron" id="p4-chev">▶</span>
+    </div>
+    <div class="phase-body" id="p4">
+      <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#BA7517;"></div></div>
+      <div class="week-label">Week 11</div>
+      <div class="mod-row">
+        <div class="mod-num">M9</div>
+        <div class="mod-content">
+          <div class="mod-title">AI Agent Observability & AgentOPs</div>
+          <div class="mod-duration">~8 hrs · 2 labs</div>
+          <div class="mod-tags">
+            <span class="tag tool">Langfuse</span>
+            <span class="tag tool">Langsmith</span>
+            <span class="tag lab">Observability implementation</span>
+          </div>
+        </div>
+      </div>
+      <div class="mod-row">
+        <div class="mod-num">M10</div>
+        <div class="mod-content">
+          <div class="mod-title">Building Agents with No/Low-Code Tools</div>
+          <div class="mod-duration">~8 hrs · 3 labs</div>
+          <div class="mod-tags">
+            <span class="tag tool">Wordware</span>
+            <span class="tag tool">Relevance AI</span>
+            <span class="tag tool">Langflow</span>
+            <span class="tag lab">SEO agent, content writer</span>
+          </div>
+        </div>
+      </div>
+      <div class="week-label">Week 12</div>
+      <div class="mod-row">
+        <div class="mod-num">B</div>
+        <div class="mod-content">
+          <div class="mod-title">Bonus: Generative & Agentic AI on Cloud</div>
+          <div class="mod-duration">~10 hrs · 1 capstone lab (self-paced)</div>
+          <div class="mod-tags">
+            <span class="tag tool">AWS Bedrock</span>
+            <span class="tag tool">Azure OpenAI</span>
+            <span class="tag tool">GCP Vertex AI</span>
+            <span class="tag lab">Deploy across all 3 clouds</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">Week 12 is intentionally lighter to give you time to build a capstone project that strings together multiple modules — e.g., a multi-agent RAG system with observability deployed to cloud.</div>
+      <button class="ask-btn" onclick="sendPrompt('Suggest a capstone project idea combining LangGraph, RAG, and Langsmith observability')">Capstone idea ↗</button>
+    </div>
+  </div>
+
+  <div style="margin-top: 14px; padding: 10px 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size: 12px; color: var(--color-text-secondary); line-height: 1.6;">
+    <strong style="color: var(--color-text-primary); font-weight: 500;">How to use me as your study partner</strong><br>
+    After each module, come back and ask me to explain a concept, quiz you, help debug your lab code, or review your project. Just describe what you're stuck on — I'll guide you through it.
+  </div>
+</div>
+
+<script>
+function toggle(id) {
+  const body = document.getElementById(id);
+  const chev = document.getElementById(id + '-chev');
+  const open = body.classList.toggle('open');
+  chev.textContent = open ? '▼' : '▶';
+}
+toggle('p1');
+</script>

@@ -2,23 +2,98 @@
 layout: default
 ---
 
+<style>
+  .post-header { margin-bottom: 28px; }
+  .post-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    border-bottom: none;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--gray-500);
+    flex-wrap: wrap;
+  }
+  .post-meta time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .post-meta .material-icons-outlined { font-size: 16px; }
+  .post-category {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: rgba(84,100,20,0.08);
+    color: var(--gum);
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .post-content { line-height: 1.8; }
+  .post-content h2 { margin-top: 36px; }
+  .post-content h3 { margin-top: 28px; }
+  .post-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .post-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gum);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
+  }
+  .post-back:hover { background: var(--gray-100); }
+  .post-back .material-icons-outlined { font-size: 18px; }
+</style>
+
+<div class="breadcrumbs">
+  <a href="{{ '/' | relative_url }}">Home</a>
+  <span class="sep">/</span>
+  <a href="{{ '/blog/' | relative_url }}">Blog</a>
+  <span class="sep">/</span>
+  <span>{{ page.title }}</span>
+</div>
+
 <article class="post">
-  <header>
+  <header class="post-header">
     <h1>{{ page.title }}</h1>
-    <p class="post-meta">
+    <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">
+        <span class="material-icons-outlined">calendar_today</span>
         {{ page.date | date: "%B %d, %Y" }}
       </time>
       {% if page.categories %}
-        &bull; {{ page.categories | join: ", " }}
+        {% for cat in page.categories %}
+          <span class="post-category">{{ cat }}</span>
+        {% endfor %}
       {% endif %}
-    </p>
+    </div>
   </header>
 
   <div class="post-content">
     {{ content }}
   </div>
 
-  <hr>
-  <p><a href="/blog/">&larr; All Tutorials</a></p>
+  <div class="post-footer">
+    <a class="post-back" href="{{ '/blog/' | relative_url }}">
+      <span class="material-icons-outlined">arrow_back</span> All Tutorials
+    </a>
+  </div>
 </article>

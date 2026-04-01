@@ -4,8 +4,8 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-title: "LearnHub — Agentic AI Engineering"
-description: "Learn to build autonomous AI agents from first principles to production. LangChain, LangGraph, CrewAI, Autogen, RAG, multi-agent systems, and cloud deployment."
+title: "LearnHub — Autonomous AI Engineering"
+description: "Practical learning tracks for building autonomous AI systems — orchestration, retrieval pipelines, multi-agent coordination, and cloud deployment."
 url: "https://kpkaushik-sse.github.io"
 baseurl: ""
 

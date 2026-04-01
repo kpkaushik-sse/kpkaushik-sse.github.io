@@ -3,98 +3,487 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
+    <meta name="theme-color" content="#546414">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     {% seo %}
     <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
     <style>
-      /* ── Nav bar ─────────────────────────────────────────── */
-      #site_nav {
-        margin-top: 14px;
+      /* ═══════════════════════════════════════════════════════
+         RESET & BASE
+         ═══════════════════════════════════════════════════════ */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --star:       #E0F82E;
+        --gum:        #546414;
+        --gum-dark:   #3a4a0e;
+        --earth:      #AC642E;
+        --stone:      #EDE7DC;
+        --eucalyptus: #EBFCD3;
+        --white:      #FFFFFF;
+        --black:      #000000;
+        --gray-50:    #FAFAF8;
+        --gray-100:   #F5F3EF;
+        --gray-200:   #E8E4DD;
+        --gray-300:   #D9D3C7;
+        --gray-500:   #8C8578;
+        --gray-700:   #4A4640;
+        --gray-900:   #1A1917;
+        --radius-sm:  6px;
+        --radius-md:  10px;
+        --radius-lg:  16px;
+        --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+        --shadow-md:  0 4px 12px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+        --shadow-lg:  0 12px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+        --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --max-width:  960px;
       }
-      #site_nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--gray-100);
+        color: var(--gray-900);
+        line-height: 1.7;
+        font-size: 15px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      ::selection { background: var(--star); color: var(--black); }
+
+      /* ═══════════════════════════════════════════════════════
+         TOP NAV BAR — Sticky, clean, Google‑style
+         ═══════════════════════════════════════════════════════ */
+      .site-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-200);
+        box-shadow: var(--shadow-sm);
+      }
+      .navbar-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 24px;
         display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
+        align-items: center;
+        height: 60px;
+        gap: 32px;
       }
-      #site_nav ul li { display: inline-flex; }
-      .nav-pill {
-        display: inline-block;
-        font-size: 12px;
-        font-weight: 500;
-        padding: 4px 12px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.9);
-        border: 0.5px solid rgba(255,255,255,0.25);
-        letter-spacing: 0.03em;
+
+      /* Logo / brand */
+      .brand {
+        display: flex;
+        align-items: center;
         text-decoration: none;
-        transition: background 0.15s, color 0.15s;
+        flex-shrink: 0;
       }
-      .nav-pill:hover,
-      .nav-pill.active {
-        background: rgba(255,255,255,0.3);
-        color: #fff;
-        border-color: rgba(255,255,255,0.5);
+      .brand-logo {
+        height: 38px;
+        width: auto;
+        display: block;
+        transition: opacity var(--transition);
       }
-      /* ── Header tagline tweak ────────────────────────────── */
-      #project_tagline { opacity: 0.88; }
-      /* ── Remove theme's fixed 540px width on h1/h2 ──────── */
-      header h1, header h2 { width: auto; font-size: unset;}
-     
-      /* ── Phase tag pills in header ───────────────────────── */
-      .header-pills {
+      .brand:hover .brand-logo { opacity: 0.85; }
+
+      /* Nav links */
+      .nav-links {
         display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 14px;
+        align-items: center;
+        gap: 4px;
+        list-style: none;
+        margin-left: auto;
       }
-      .header-pill {
-        font-size: 11px;
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        font-size: 14px;
         font-weight: 500;
-        padding: 3px 10px;
+        color: var(--gray-700);
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        transition: background var(--transition), color var(--transition);
+        white-space: nowrap;
+        position: relative;
+      }
+      .nav-links a:hover {
+        background: var(--gray-100);
+        color: var(--gum);
+      }
+      .nav-links a.active {
+        color: var(--gum);
+        background: rgba(84, 100, 20, 0.08);
+        font-weight: 600;
+      }
+      .nav-links a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 16px;
+        right: 16px;
+        height: 2px;
+        background: var(--gum);
+        border-radius: 2px 2px 0 0;
+      }
+      .nav-links .material-icons-outlined {
+        font-size: 18px;
+      }
+
+      /* Mobile hamburger */
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        margin-left: auto;
+        border-radius: var(--radius-sm);
+        color: var(--gray-700);
+      }
+      .nav-toggle:hover { background: var(--gray-100); }
+      .nav-toggle .material-icons-outlined { font-size: 24px; }
+
+      @media (max-width: 768px) {
+        .nav-toggle { display: flex; }
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: var(--white);
+          border-bottom: 1px solid var(--gray-200);
+          box-shadow: var(--shadow-md);
+          padding: 8px;
+          gap: 2px;
+        }
+        .nav-links.open { display: flex; }
+        .nav-links a { padding: 12px 16px; border-radius: var(--radius-sm); }
+        .nav-links a.active::after { display: none; }
+        .navbar-inner { position: relative; }
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         MAIN CONTENT
+         ═══════════════════════════════════════════════════════ */
+      .site-main {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 32px 24px 64px;
+        min-height: calc(100vh - 60px - 200px);
+      }
+
+      .content-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        padding: 40px 48px;
+        border: 1px solid var(--gray-200);
+      }
+
+      @media (max-width: 768px) {
+        .site-main { padding: 20px 16px 48px; }
+        .content-card { padding: 24px 20px; border-radius: var(--radius-md); }
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         TYPOGRAPHY
+         ═══════════════════════════════════════════════════════ */
+      h1, h2, h3, h4, h5, h6 {
+        color: var(--gray-900);
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+      h1 { font-size: 28px; margin: 0 0 16px; }
+      h2 { font-size: 22px; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gray-200); }
+      h3 { font-size: 18px; margin: 24px 0 8px; }
+      h4 { font-size: 16px; margin: 20px 0 8px; }
+      h1:first-child { margin-top: 0; }
+      h2:first-child { margin-top: 0; }
+
+      p { margin: 0 0 16px; color: var(--gray-700); }
+
+      strong { color: var(--gray-900); font-weight: 600; }
+
+      a { color: var(--gum); text-decoration: none; transition: color var(--transition); }
+      a:hover { color: var(--earth); }
+
+      hr {
+        border: none;
+        height: 1px;
+        background: var(--gray-200);
+        margin: 32px 0;
+      }
+
+      /* Lists */
+      ul, ol { margin: 0 0 16px; padding-left: 24px; color: var(--gray-700); }
+      li { margin-bottom: 6px; }
+      li::marker { color: var(--gum); }
+
+      /* Tables — clean Google style */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0 24px;
+        font-size: 14px;
+      }
+      thead {
+        background: var(--gray-100);
+      }
+      th {
+        text-align: left;
+        padding: 10px 16px;
+        font-weight: 600;
+        color: var(--gray-900);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 2px solid var(--gray-200);
+      }
+      td {
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--gray-200);
+        color: var(--gray-700);
+      }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: var(--gray-50); }
+
+      /* Code */
+      code {
+        font-family: 'Fira Code', monospace;
+        font-size: 13px;
+        background: var(--eucalyptus);
+        color: var(--gum-dark);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      pre {
+        background: var(--gray-900);
+        color: #e8e8e8;
+        border-radius: var(--radius-md);
+        padding: 20px 24px;
+        overflow-x: auto;
+        margin: 16px 0 24px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        font-size: inherit;
+      }
+
+      /* Blockquotes */
+      blockquote {
+        border-left: 3px solid var(--earth);
+        padding: 12px 20px;
+        margin: 16px 0 24px;
+        background: rgba(172, 100, 46, 0.04);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        color: var(--gray-700);
+      }
+      blockquote p:last-child { margin-bottom: 0; }
+
+      /* Images */
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius-md);
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════ */
+      .site-footer {
+        background: var(--gray-900);
+        color: var(--gray-500);
+        padding: 40px 24px;
+        font-size: 13px;
+      }
+      .footer-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        color: var(--gray-300);
+        font-size: 14px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      .footer-links a {
+        color: var(--gray-500);
+        font-size: 13px;
+      }
+      .footer-links a:hover { color: var(--star); }
+      .footer-copy {
+        width: 100%;
+        text-align: center;
+        padding-top: 20px;
+        margin-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        color: var(--gray-500);
+      }
+      .footer-copy a { color: var(--gray-500); }
+      .footer-copy a:hover { color: var(--star); }
+
+      @media (max-width: 768px) {
+        .footer-inner { flex-direction: column; text-align: center; }
+        .footer-links { justify-content: center; }
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         BREADCRUMBS (used by post layout)
+         ═══════════════════════════════════════════════════════ */
+      .breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--gray-500);
+        margin-bottom: 20px;
+      }
+      .breadcrumbs a { color: var(--gum); font-weight: 500; }
+      .breadcrumbs a:hover { color: var(--earth); }
+      .breadcrumbs .sep { color: var(--gray-300); }
+
+      /* ═══════════════════════════════════════════════════════
+         UTILITY CLASSES
+         ═══════════════════════════════════════════════════════ */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
         border-radius: 20px;
-        background: rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.9);
-        border: 0.5px solid rgba(255,255,255,0.25);
-        letter-spacing: 0.03em;
+        letter-spacing: 0.02em;
+      }
+      .badge-gum   { background: rgba(84,100,20,0.1);  color: var(--gum); }
+      .badge-earth { background: rgba(172,100,46,0.1);  color: var(--earth); }
+      .badge-star  { background: rgba(224,248,46,0.2);  color: var(--gum-dark); }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--white);
+        background: var(--gum);
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background var(--transition), box-shadow var(--transition);
+        box-shadow: var(--shadow-sm);
+      }
+      .btn-primary:hover {
+        background: var(--gum-dark);
+        color: var(--white);
+        box-shadow: var(--shadow-md);
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         PRINT STYLES
+         ═══════════════════════════════════════════════════════ */
+      @media print {
+        .site-navbar, .site-footer { display: none; }
+        .content-card { box-shadow: none; border: none; padding: 0; }
+        body { background: #fff; }
       }
     </style>
   </head>
   <body>
-    <div id="header_wrap" class="outer">
-      <header class="inner">
-        <h1 id="project_title"><a href="{{ '/' | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a></h1>
-        <h2 id="project_tagline">{{ site.description }}</h2>
-        
-        <nav id="site_nav">
-          <ul>
-            <li><a class="nav-pill{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a class="nav-pill{% if page.url contains '/courses' %} active{% endif %}" href="{{ '/courses/' | relative_url }}">Courses</a></li>
-            <li><a class="nav-pill{% if page.url contains 'agentic-ai-engineering' %} active{% endif %}" href="{{ '/courses/agentic-ai-engineering/' | relative_url }}">Agentic AI</a></li>
-            <li><a class="nav-pill{% if page.url contains '/blog' %} active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a></li>
-            <li><a class="nav-pill{% if page.url contains '/about' %} active{% endif %}" href="{{ '/about/' | relative_url }}">About</a></li>
-          </ul>
-        </nav>
-      </header>
-     
-    </div>
 
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+    <!-- ═══════════ NAVBAR ═══════════ -->
+    <nav class="site-navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar-inner">
+        <a class="brand" href="{{ '/' | relative_url }}">
+          <img class="brand-logo" src="{{ '/assets/images/logo.svg' | relative_url }}" alt="{{ site.title }}">
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+
+        <ul class="nav-links">
+          <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>
+            <span class="material-icons-outlined">home</span> Home
+          </a></li>
+          <li><a href="{{ '/courses/' | relative_url }}"{% if page.url == '/courses/' %} class="active"{% endif %}>
+            <span class="material-icons-outlined">school</span> Courses
+          </a></li>
+          <li><a href="{{ '/courses/agentic-ai-engineering/' | relative_url }}"{% if page.url contains 'agentic-ai-engineering' %} class="active"{% endif %}>
+            <span class="material-icons-outlined">smart_toy</span> Agentic AI
+          </a></li>
+          <li><a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>
+            <span class="material-icons-outlined">article</span> Blog
+          </a></li>
+          <li><a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about' %} class="active"{% endif %}>
+            <span class="material-icons-outlined">info</span> About
+          </a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="site-main">
+      <div class="content-card">
         {{ content }}
-      </section>
-    </div>
+      </div>
+    </main>
 
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">LearnHub — Agentic AI Engineering &bull; by <a href="{{ '/about/' | relative_url }}">Khush Kaushik</a></p>
-        <p>Built with <a href="https://jekyllrb.com">Jekyll</a> &bull; Hosted on <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="{{ site.title }}" style="height:36px;width:auto;">
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/courses/' | relative_url }}">Courses</a></li>
+          <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        </ul>
+
+        <div class="footer-copy">
+          &copy; {{ 'now' | date: "%Y" }} <a href="{{ '/about/' | relative_url }}">Khush Kaushik</a> &middot;
+          Built with <a href="https://jekyllrb.com">Jekyll</a> &middot;
+          Hosted on <a href="https://pages.github.com">GitHub Pages</a>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>

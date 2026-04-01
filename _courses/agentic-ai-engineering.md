@@ -1,33 +1,22 @@
 ---
 layout: default
-title: "Agentic AI Engineering — Self-Paced Course"
+title: "Autonomous AI Systems — Practical Engineering Track"
 permalink: /courses/agentic-ai-engineering/
-description: "A comprehensive 12-week self-paced plan covering Agentic AI from foundations to cloud deployment — LangChain, LangGraph, CrewAI, Autogen, RAG, and more."
+description: "A hands-on 12-week learning track for building autonomous AI agents — covering orchestration frameworks, retrieval-augmented pipelines, multi-agent coordination, and production deployment."
 ---
 
 <style>
-  /* CSS variable fallbacks for the architect theme */
+  /* Course page — harmonized with new LMS layout */
   .course-page {
-    --c-text-primary:   #1a1a1a;
-    --c-text-secondary: #555;
-    --c-text-tertiary:  #888;
-    --c-bg-primary:     #ffffff;
-    --c-bg-secondary:   #f6f6f6;
-    --c-border:         #e2e2e2;
-    --c-border-sec:     #ccc;
-    --r-lg: 10px;
-    --r-md:  6px;
-  }
-  @media (prefers-color-scheme: dark) {
-    .course-page {
-      --c-text-primary:   #e8e8e8;
-      --c-text-secondary: #aaa;
-      --c-text-tertiary:  #666;
-      --c-bg-primary:     #1e1e1e;
-      --c-bg-secondary:   rgb(48, 23, 116);
-      --c-border:         #363636;
-      --c-border-sec:     #444;
-    }
+    --c-text-primary:   var(--gray-900, #1A1917);
+    --c-text-secondary: var(--gray-700, #4A4640);
+    --c-text-tertiary:  var(--gray-500, #8C8578);
+    --c-bg-primary:     var(--white, #FFFFFF);
+    --c-bg-secondary:   var(--gray-100, #F5F3EF);
+    --c-border:         var(--gray-200, #E8E4DD);
+    --c-border-sec:     var(--gray-300, #D9D3C7);
+    --r-lg: 12px;
+    --r-md:  8px;
   }
 
   .course-page { padding: 4px 0 24px; max-width: 740px; }
@@ -83,20 +72,20 @@ description: "A comprehensive 12-week self-paced plan covering Agentic AI from f
 <div class="course-page">
   <a class="back-link" href="/courses/">&larr; All Courses</a>
 
-  <div class="course-hero-title">Agentic AI Engineering</div>
-  <div class="course-hero-sub">Self-paced plan &nbsp;·&nbsp; 11 modules &nbsp;·&nbsp; ~12 weeks &nbsp;·&nbsp; study 8–10 hrs/week</div>
+  <div class="course-hero-title">Autonomous AI Systems — Practical Engineering Track</div>
+  <div class="course-hero-sub">Learn at your pace &nbsp;·&nbsp; 11 units &nbsp;·&nbsp; ~12 weeks &nbsp;·&nbsp; 8–10 hrs/week recommended</div>
 
   <div class="overview-grid">
-    <div class="stat-card"><div class="stat-label">Total modules</div><div class="stat-val">11</div></div>
-    <div class="stat-card"><div class="stat-label">Hands-on labs</div><div class="stat-val">20+</div></div>
-    <div class="stat-card"><div class="stat-label">Est. duration</div><div class="stat-val">12 wks</div></div>
+    <div class="stat-card"><div class="stat-label">Learning units</div><div class="stat-val">11</div></div>
+    <div class="stat-card"><div class="stat-label">Practice projects</div><div class="stat-val">20+</div></div>
+    <div class="stat-card"><div class="stat-label">Timeline</div><div class="stat-val">12 wks</div></div>
   </div>
 
-  <!-- PHASE 1 -->
+  <!-- TRACK A -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p1')">
-      <span class="phase-badge" style="background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6;">Phase 1</span>
-      <span class="phase-title">Foundations</span>
+      <span class="phase-badge" style="background:#EEEDFE;color:#3C3489;border:0.5px solid #CECBF6;">Track A</span>
+      <span class="phase-title">Groundwork &amp; Principles</span>
       <span class="phase-meta">Weeks 1–3</span>
       <span class="chevron" id="p1-chev">▶</span>
     </div>
@@ -105,42 +94,42 @@ description: "A comprehensive 12-week self-paced plan covering Agentic AI from f
 
       <div class="week-label">Week 1</div>
       <div class="mod-row">
-        <div class="mod-num">M1</div>
+        <div class="mod-num">U1</div>
         <div class="mod-content">
-          <div class="mod-title"><a href="/blog/2026/03/21/m1-agentic-ai-essentials/" style="color:inherit;text-decoration:none;">Agentic AI Essentials ↗</a></div>
-          <div class="mod-duration">~8 hrs · 2 labs</div>
+          <div class="mod-title"><a href="/blog/2026/03/21/m1-agentic-ai-essentials/" style="color:inherit;text-decoration:none;">Introduction to Autonomous AI ↗</a></div>
+          <div class="mod-duration">~8 hrs · 2 exercises</div>
           <div class="mod-tags">
-            <span class="tag concept">Concepts</span>
-            <span class="tag concept">Ethics</span>
-            <span class="tag lab">Analyze use cases</span>
+            <span class="tag concept">Core ideas</span>
+            <span class="tag concept">Responsible AI</span>
+            <span class="tag lab">Evaluate real-world scenarios</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Weeks 2–3</div>
       <div class="mod-row">
-        <div class="mod-num">M2</div>
+        <div class="mod-num">U2</div>
         <div class="mod-content">
-          <div class="mod-title">Architectures &amp; Design Patterns</div>
-          <div class="mod-duration">~10 hrs · 2 labs</div>
+          <div class="mod-title"><a href="/blog/2026/03/28/u2-agentic-ai-architecture-design-patterns/" style="color:inherit;text-decoration:none;">Agent Blueprints &amp; Reasoning Strategies ↗</a></div>
+          <div class="mod-duration">~10 hrs · 2 exercises</div>
           <div class="mod-tags">
-            <span class="tag concept">ReAct / ReWOO</span>
-            <span class="tag concept">Multi-agent</span>
-            <span class="tag lab">Design an architecture</span>
+            <span class="tag concept">ReAct / ReWOO loops</span>
+            <span class="tag concept">Cooperative agents</span>
+            <span class="tag lab">Draft a system blueprint</span>
           </div>
         </div>
       </div>
 
-      <div class="tip-box">Start a notes doc. Sketch each design pattern (Reflection, Tool Use, Planning, ReAct) by hand — it cements them far better than just reading.</div>
+      <div class="tip-box">Keep a personal journal. Draw each reasoning loop (Reflection, Tool Invocation, Planning, Action-Observation) on paper — active recall beats passive reading every time.</div>
     </div>
 
   </div>
 
-  <!-- PHASE 2 -->
+  <!-- TRACK B -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p2')">
-      <span class="phase-badge" style="background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4;">Phase 2</span>
-      <span class="phase-title">Core Frameworks</span>
+      <span class="phase-badge" style="background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4;">Track B</span>
+      <span class="phase-title">Orchestration Toolkits</span>
       <span class="phase-meta">Weeks 4–7</span>
       <span class="chevron" id="p2-chev">▶</span>
     </div>
@@ -149,57 +138,57 @@ description: "A comprehensive 12-week self-paced plan covering Agentic AI from f
 
       <div class="week-label">Week 4</div>
       <div class="mod-row">
-        <div class="mod-num">M3</div>
+        <div class="mod-num">U3</div>
         <div class="mod-content">
-          <div class="mod-title">LangChain &amp; LCEL</div>
+          <div class="mod-title"><a href="/blog/2026/04/11/u3-chain-composition-langchain/" style="color:inherit;text-decoration:none;">Chain Composition with LangChain ↗</a></div>
           <div class="mod-duration">~9 hrs · 1 project</div>
           <div class="mod-tags">
             <span class="tag tool">LangChain</span>
             <span class="tag tool">LCEL</span>
-            <span class="tag lab">Build self-correcting coding assistant</span>
+            <span class="tag lab">Create an auto-debugging code helper</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Weeks 5–6</div>
       <div class="mod-row">
-        <div class="mod-num">M4</div>
+        <div class="mod-num">U4</div>
         <div class="mod-content">
-          <div class="mod-title">Building AI Agents with LangGraph</div>
+          <div class="mod-title"><a href="/blog/2026/04/18/u4-stateful-agent-workflows-langgraph/" style="color:inherit;text-decoration:none;">Stateful Agent Workflows with LangGraph ↗</a></div>
           <div class="mod-duration">~12 hrs · 1 project</div>
           <div class="mod-tags">
             <span class="tag tool">LangGraph</span>
-            <span class="tag concept">State &amp; Memory</span>
-            <span class="tag lab">Finance bot</span>
+            <span class="tag concept">State management</span>
+            <span class="tag lab">Personal budget advisor</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Week 7</div>
       <div class="mod-row">
-        <div class="mod-num">M5</div>
+        <div class="mod-num">U5</div>
         <div class="mod-content">
-          <div class="mod-title">Implementing Agentic RAG</div>
+          <div class="mod-title"><a href="/blog/2026/04/25/u5-retrieval-augmented-agent-pipelines/" style="color:inherit;text-decoration:none;">Retrieval-Augmented Agent Pipelines ↗</a></div>
           <div class="mod-duration">~10 hrs · 2 projects</div>
           <div class="mod-tags">
             <span class="tag tool">LlamaIndex</span>
             <span class="tag tool">Cohere</span>
-            <span class="tag lab">Sales report analyzer</span>
-            <span class="tag lab">Market research agent</span>
+            <span class="tag lab">Quarterly earnings summarizer</span>
+            <span class="tag lab">Competitive intelligence bot</span>
           </div>
         </div>
       </div>
 
-      <div class="tip-box">This is the densest phase. Don't rush M4 — LangGraph's state/memory model is the backbone of everything that follows. Spend extra time on the Finance Bot project.</div>
+      <div class="tip-box">This track is the most intensive. Take your time with U4 — understanding how LangGraph manages state and memory is critical for everything ahead. Put extra effort into the budget advisor project.</div>
     </div>
 
   </div>
 
-  <!-- PHASE 3 -->
+  <!-- TRACK C -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p3')">
-      <span class="phase-badge" style="background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB;">Phase 3</span>
-      <span class="phase-title">Advanced Agents</span>
+      <span class="phase-badge" style="background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB;">Track C</span>
+      <span class="phase-title">Collaborative &amp; Specialized Agents</span>
       <span class="phase-meta">Weeks 8–10</span>
       <span class="chevron" id="p3-chev">▶</span>
     </div>
@@ -208,57 +197,57 @@ description: "A comprehensive 12-week self-paced plan covering Agentic AI from f
 
       <div class="week-label">Week 8</div>
       <div class="mod-row">
-        <div class="mod-num">M6</div>
+        <div class="mod-num">U6</div>
         <div class="mod-content">
-          <div class="mod-title">AI Agents with Phidata</div>
+          <div class="mod-title"><a href="/blog/2026/05/02/u6-rapid-agent-prototyping-phidata/" style="color:inherit;text-decoration:none;">Rapid Agent Prototyping with Phidata ↗</a></div>
           <div class="mod-duration">~8 hrs · 1 project</div>
           <div class="mod-tags">
             <span class="tag tool">Phidata</span>
             <span class="tag tool">Vector DB</span>
-            <span class="tag lab">Data analysis agent</span>
+            <span class="tag lab">Automated insights dashboard</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Week 9</div>
       <div class="mod-row">
-        <div class="mod-num">M7</div>
+        <div class="mod-num">U7</div>
         <div class="mod-content">
-          <div class="mod-title">Multi-Agent Systems — LangGraph + CrewAI</div>
+          <div class="mod-title"><a href="/blog/2026/05/09/u7-coordinated-agent-teams-crewai/" style="color:inherit;text-decoration:none;">Coordinated Agent Teams with CrewAI ↗</a></div>
           <div class="mod-duration">~10 hrs · 2 projects</div>
           <div class="mod-tags">
             <span class="tag tool">CrewAI</span>
-            <span class="tag concept">Multi-agent design</span>
-            <span class="tag lab">Customer support chatbot</span>
-            <span class="tag lab">Stock analysis agent</span>
+            <span class="tag concept">Agent collaboration</span>
+            <span class="tag lab">Help-desk automation</span>
+            <span class="tag lab">Equity screening assistant</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Week 10</div>
       <div class="mod-row">
-        <div class="mod-num">M8</div>
+        <div class="mod-num">U8</div>
         <div class="mod-content">
-          <div class="mod-title">Advanced Agent Dev with Autogen</div>
+          <div class="mod-title"><a href="/blog/2026/05/16/u8-conversational-agent-networks-autogen/" style="color:inherit;text-decoration:none;">Conversational Agent Networks with Autogen ↗</a></div>
           <div class="mod-duration">~9 hrs · 1 project</div>
           <div class="mod-tags">
             <span class="tag tool">Autogen</span>
-            <span class="tag concept">Conversation patterns</span>
-            <span class="tag lab">AI research agent</span>
+            <span class="tag concept">Dialogue patterns</span>
+            <span class="tag lab">Literature review assistant</span>
           </div>
         </div>
       </div>
 
-      <div class="tip-box">Compare CrewAI vs LangGraph multi-agent vs Autogen side-by-side. Each has a different philosophy — a written comparison will be your best study artifact.</div>
+      <div class="tip-box">After completing this track, write a side-by-side comparison of CrewAI, LangGraph multi-agent, and Autogen. Each takes a fundamentally different approach — documenting the trade-offs is the most valuable exercise here.</div>
     </div>
 
   </div>
 
-  <!-- PHASE 4 -->
+  <!-- TRACK D -->
   <div class="phase">
     <div class="phase-header" onclick="toggle('p4')">
-      <span class="phase-badge" style="background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;">Phase 4</span>
-      <span class="phase-title">Ops, No-Code &amp; Cloud</span>
+      <span class="phase-badge" style="background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;">Track D</span>
+      <span class="phase-title">Production, Monitoring &amp; Deployment</span>
       <span class="phase-meta">Weeks 11–12</span>
       <span class="chevron" id="p4-chev">▶</span>
     </div>
@@ -267,55 +256,55 @@ description: "A comprehensive 12-week self-paced plan covering Agentic AI from f
 
       <div class="week-label">Week 11</div>
       <div class="mod-row">
-        <div class="mod-num">M9</div>
+        <div class="mod-num">U9</div>
         <div class="mod-content">
-          <div class="mod-title">AI Agent Observability &amp; AgentOps</div>
+          <div class="mod-title"><a href="/blog/2026/05/23/u9-tracing-evaluation-agent-telemetry/" style="color:inherit;text-decoration:none;">Tracing, Evaluation &amp; Agent Telemetry ↗</a></div>
           <div class="mod-duration">~8 hrs · 2 labs</div>
           <div class="mod-tags">
             <span class="tag tool">Langfuse</span>
             <span class="tag tool">Langsmith</span>
-            <span class="tag lab">Observability implementation</span>
+            <span class="tag lab">End-to-end tracing setup</span>
           </div>
         </div>
       </div>
 
       <div class="mod-row">
-        <div class="mod-num">M10</div>
+        <div class="mod-num">U10</div>
         <div class="mod-content">
-          <div class="mod-title">Building Agents with No/Low-Code Tools</div>
+          <div class="mod-title"><a href="/blog/2026/05/23/u10-visual-low-code-agent-builders/" style="color:inherit;text-decoration:none;">Visual &amp; Low-Code Agent Builders ↗</a></div>
           <div class="mod-duration">~8 hrs · 3 labs</div>
           <div class="mod-tags">
             <span class="tag tool">Wordware</span>
             <span class="tag tool">Relevance AI</span>
             <span class="tag tool">Langflow</span>
-            <span class="tag lab">SEO agent, content writer</span>
+            <span class="tag lab">Content pipeline &amp; SEO assistant</span>
           </div>
         </div>
       </div>
 
       <div class="week-label">Week 12</div>
       <div class="mod-row">
-        <div class="mod-num">B</div>
+        <div class="mod-num">★</div>
         <div class="mod-content">
-          <div class="mod-title">Bonus: Generative &amp; Agentic AI on Cloud</div>
-          <div class="mod-duration">~10 hrs · 1 capstone lab (self-paced)</div>
+          <div class="mod-title"><a href="/blog/2026/05/30/u11-capstone-deploying-autonomous-ai-cloud/" style="color:inherit;text-decoration:none;">Capstone: Deploying Autonomous AI on Major Clouds ↗</a></div>
+          <div class="mod-duration">~10 hrs · 1 capstone project (flexible pace)</div>
           <div class="mod-tags">
             <span class="tag tool">AWS Bedrock</span>
             <span class="tag tool">Azure OpenAI</span>
             <span class="tag tool">GCP Vertex AI</span>
-            <span class="tag lab">Deploy across all 3 clouds</span>
+            <span class="tag lab">Multi-cloud deployment exercise</span>
           </div>
         </div>
       </div>
 
-      <div class="tip-box">Week 12 is intentionally lighter to give you time to build a capstone project that strings together multiple modules — e.g., a multi-agent RAG system with observability deployed to cloud.</div>
+      <div class="tip-box">The final week is kept lighter on purpose — use it to build your capstone that ties several units together: for instance, a coordinated agent pipeline with retrieval, tracing, and cloud deployment.</div>
     </div>
 
   </div>
 
   <div class="study-footer">
-    <strong>Suggested study rhythm</strong><br>
-    Work through each phase sequentially. After finishing a module, review your notes, push your lab code to GitHub, and write a short reflection before moving on. The capstone in Week 12 is your portfolio piece — start scoping it during Week 10.
+    <strong>How to get the most from this track</strong><br>
+    Progress through each track in order. After each unit, revisit your notes, commit your project code, and jot a brief reflection. Begin planning your capstone during Week 10 — it will serve as the centerpiece of your portfolio.
   </div>
 </div>
 
